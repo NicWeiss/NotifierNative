@@ -16,7 +16,7 @@ class UserStore {
 
     return Api.doRequest(
       'POST', '/auth/login',
-      { data: {'email': login, 'password': password} }
+      { data: { 'email': login, 'password': password } }
     );
   }
 
@@ -30,6 +30,43 @@ class UserStore {
     }
 
     PopToLoginScreen();
+  }
+
+  @action loadData = async () => {
+    this.isLoading = true;
+    console.log('TRY LOAD');
+    await this.requestData();
+
+    this.isLoading = false;
+  }
+
+  @action refreshData = async () => {
+    this.isRefreshing = true;
+
+    await this.requestData();
+
+    this.isRefreshing = false;
+  }
+
+  requestData = async () => {
+    let response = null;
+
+    try {
+      response = await Api.doRequest('GET', '/user');
+    } catch (error) {
+      this.logOut();
+    }
+
+    console.log(response);
+
+    if (response) {
+      const responseUser = response.data;
+
+      this.user = ValidateResponseData(responseUser, UserModel);
+      this.user.storageName = this.user.name.replace(' ', '');
+    } else {
+      ShowToast('Не удалось загрузить данные пользователя');
+    }
   }
 }
 

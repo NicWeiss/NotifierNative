@@ -6,9 +6,9 @@ import { Text } from 'react-native';
 import { Container, Header, LoaderScreen, Tabs } from 'app/components';
 
 // import OrderListInWorkContext from 'app/stores/orderList/inWork';
-// import OrderListCompletedContext from 'app/stores/orderList/completed';
+import NotifyListNotifyContext from 'app/stores/notifyList/notify';
 // import OrderListNoCourierContext from 'app/stores/orderList/noCourier';
-// import UserStoreContext from 'app/stores/user';
+import UserStoreContext from 'app/stores/user';
 
 import NotifyListTopbarLeftButton from './topbarLeftButton';
 import NotifyListTopbarRightButton from './topbarRightButton';
@@ -20,13 +20,15 @@ import NotifyListAcceptorsTab from './tabs/acceptors';
 
 const NotifyListScreen = observer(() => {
 
-  // const { loadData: loadNotify } = useContext(NotifyListNotifyContext);
+  const { loadData: loadNotify } = useContext(NotifyListNotifyContext);
   // const { loadData: loadacceptors } = useContext(NotifyListScreenAcceptorsContext);
+  // const { loadData: loadUserData } = useContext(UserStoreContext);
 
   useEffect(() => {
     Orientation.lockToPortrait();
 
-    // loadNotify();
+    // loadUserData();
+    loadNotify();
     // loadacceptors();
   }, []);
 

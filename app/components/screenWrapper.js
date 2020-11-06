@@ -45,7 +45,7 @@ const ScreenWrapper = ({
         <ActivityIndicator size='large' color={Colors.orange} />
       </View>
     );
-  } else if (!isLoading && !isRefreshing && isDataEmpty && !!emptyDataMessage) {
+  } else if (!isLoading && isDataEmpty && !!emptyDataMessage) {
     return (
       <Container>
         <ScrollView

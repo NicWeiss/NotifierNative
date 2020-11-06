@@ -1,35 +1,30 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import { Container, ScreenWrapper } from 'app/components';
 import { FlalistWrapper } from 'app/components/lists';
-import react from 'react';
-// import { NotifyListItem } from 'app/components/listItems';
+import { NotifyListItem } from 'app/components/listItems';
 
 
 const NotifyListSampleTab = ({
-  // list,
-  // refreshData, loadMoreData,
-  // isLoading, isRefreshing, isLoadingMore,
-  emptyDataMessage
+  list, isLoading, isRefreshing, emptyDataMessage
 }) => {
 
-  // handleRenderItem = item => NotifyListItem(item);
+  handleRenderItem = item => NotifyListItem(item);
 
   return (
     <ScreenWrapper
       isTab={true}
+      isLoading={isLoading}
+      isDataEmpty={list.length === 0}
       emptyDataMessage={emptyDataMessage}
     >
        <Container>
-         {/* <FlalistWrapper
+         <FlalistWrapper
           list={list}
           renderItem={handleRenderItem}
           isRefreshing={isRefreshing}
-          onRefresh={refreshData}
-          isLoadingMore={isLoadingMore}
-          handleLoadMore={loadMoreData}
-        /> */}
+          isLoading={isLoading}
+        />
        </Container>
      </ScreenWrapper>
   );
