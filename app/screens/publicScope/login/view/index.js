@@ -4,7 +4,6 @@ import {
   ActivityIndicator, Animated, Image, Keyboard, Platform,
   Text, TextInput, TouchableOpacity, View
 } from 'react-native';
-import { getUniqueId } from 'react-native-device-info';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Colors from 'app/constants/Colors';
@@ -17,7 +16,7 @@ export default class LoginView extends PureComponent {
 
   static propTypes = {
     logIn: PropTypes.func.isRequired,
-    // navigateToNotifyList: PropTypes.func.isRequired,
+    navigateToNotifyList: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -77,15 +76,15 @@ export default class LoginView extends PureComponent {
     await AsyncStorage.setItem('secret', password);
 
     try {
-      await this.props.logIn(login);
-      const deviceId = getUniqueId();
-
-      await AsyncStorage.setItem('secret', password + deviceId);
+      let responce = await this.props.logIn(login, password);
+      console.log(responce.data.session);
+      console.log(responce.data.user);
+      await AsyncStorage.setItem('session', responce.data.session);
 
       this.onChangeLogin('');
       this.onChangePassword('');
 
-      // this.props.navigateToNotifyList();
+      this.props.navigateToNotifyList();
     } catch (error) {
       const errorResponse = error.response?.data?.errors;
 

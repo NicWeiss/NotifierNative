@@ -15,12 +15,13 @@ const LoginScreen = observer(props => {
   const { logIn } = useContext(UserStoreContext);
 
   const checkAuth = async () => {
-    const secret = await AsyncStorage.getItem('secret');
+    const session = await AsyncStorage.getItem('session');
 
     SaveLoginScreenComponentId(props.componentId);
 
-    if (!!secret) {
-      // navigateToNotifyList();
+    if (!!session) {
+      console.log('session found!');
+      navigateToNotifyList();
     }
   };
 
@@ -31,12 +32,12 @@ const LoginScreen = observer(props => {
     checkAuth();
   }, []);
 
-  // const navigateToNotifyList = () => NavigateTo('NotifyList');
+  const navigateToNotifyList = () => NavigateTo('NotifyList');
 
   return (
     <LoginView
       logIn={logIn}
-      // navigateToNotifyList={navigateToNotifyList}
+      navigateToNotifyList={navigateToNotifyList}
     />
   );
 });
