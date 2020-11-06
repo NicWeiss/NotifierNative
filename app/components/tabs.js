@@ -14,9 +14,6 @@ const deviceWidth = Dimensions.get('window').width;
 export default class Tabs extends PureComponent {
 
   static propTypes = {
-    topPanel: PropTypes.array,
-    bottomPanel: PropTypes.array,
-    bottomPanelProps: PropTypes.object,
     propsToTabs: PropTypes.object,
     tabNames: PropTypes.array.isRequired,
     tabFuncComponents: PropTypes.array.isRequired,
@@ -24,7 +21,6 @@ export default class Tabs extends PureComponent {
   }
 
   static defaultProps = {
-    topPanel: [],
     bottomPanel: [],
     bottomPanelProps: {},
     propsToTabs: {},
@@ -66,25 +62,19 @@ export default class Tabs extends PureComponent {
 
   changeTabNameSelectedUnderlineXPosition = value => Animated.timing(this.tabNameSelectedUnderlineXPosition, {
     toValue: value,
-    duration: 5
+    duration: 5,
+    useNativeDriver: false
   }).start()
 
   render() {
     const currentTabIndex = this.state.currentTabIndex;
     const {
-      isScrollEnabled, topPanel, bottomPanel, bottomPanelProps,
+      isScrollEnabled, bottomPanel, bottomPanelProps,
       tabNames, tabFuncComponents, propsToTabs
     } = this.props;
 
     return (
       <Fragment>
-        {
-          topPanel.map((TopPanelFuncComponent, index) => (
-            <View key={`topPanel_${index}`}>
-              {cloneElement(<TopPanelFuncComponent />, { currentTabIndex })}
-            </View>
-          ))
-        }
 
         <View style={styles.tabNames}>
           <View style={styles.tabNamesContainer}>
@@ -172,7 +162,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   tabNames: {
-    backgroundColor: Colors.blueDarkest,
+    backgroundColor: Colors.orange,
   },
   tabNamesContainer: {
     flexDirection: 'row',
@@ -190,7 +180,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     height: 4,
-    backgroundColor: Colors.yellow
+    backgroundColor: Colors.darkOrange
   },
   tabNameText: {
     color: Colors.white,

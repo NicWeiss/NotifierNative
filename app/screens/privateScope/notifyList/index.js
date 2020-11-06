@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Orientation from 'react-native-orientation-locker';
-import { Text} from 'react-native';
+import { Text } from 'react-native';
 
 import { Container, Header, LoaderScreen, Tabs } from 'app/components';
 
@@ -12,11 +12,10 @@ import { Container, Header, LoaderScreen, Tabs } from 'app/components';
 
 import NotifyListTopbarLeftButton from './topbarLeftButton';
 import NotifyListTopbarRightButton from './topbarRightButton';
-// import OrderListSearchPanel from './searchPanel';
 // import OrderListNoDataMessage from './noDataMessage';
 
-// import OrderListCompletedTab from './tabs/notify';
-// import OrderListInWorkTab from './tabs/acceptors';
+import NotifyListNotifyTab from './tabs/notify';
+import NotifyListAcceptorsTab from './tabs/acceptors';
 
 
 const NotifyListScreen = observer(() => {
@@ -31,37 +30,21 @@ const NotifyListScreen = observer(() => {
     // loadacceptors();
   }, []);
 
-  const [multiselectState, changeMultiselectState] = useState({
-    name: null,
-    isDisabled: true,
-    isVisible: false,
-    isActive: false
-  });
 
-  // let names = ['Уведомления', 'Получатели'];
-  // let funcComponents = [NotifyListNotifyTab, NotifyListScreenAcceptorsTab];
+  let names = ['Уведомления', 'Получатели'];
+  let funcComponents = [NotifyListNotifyTab, NotifyListAcceptorsTab];
 
-  // let tabs = [
-  //   { name: 'Уведомления', funcComponent: NotifyListNotifyTab },
-  //   { name: 'Завершенные', funcComponent: NotifyListScreenAcceptorsTab }
-  // ];
+  let tabs = [
+    { name: 'Уведомления', funcComponent: NotifyListNotifyTab },
+    { name: 'Получатели', funcComponent: NotifyListAcceptorsTab }
+  ];
 
-  let content = null;
-
-  // if (isUserDataLoading) {
-    // content = <LoaderScreen />;
-  // } else if (name === null) {
-    // content = <OrderListNoDataMessage />;
-  // } else {
-    // content = (
-    //   <Tabs
-    //     topPanel={[OrderListSearchPanel]}
-    //     tabNames={names}
-    //     tabFuncComponents={funcComponents}
-    //     propsToTabs={{ multiselectState, changeMultiselectState }}
-    //   />
-    // );
-  // }
+  let content = (
+    <Tabs
+      tabNames={names}
+      tabFuncComponents={funcComponents}
+    />
+  );
 
   return (
     <Container>
@@ -71,7 +54,7 @@ const NotifyListScreen = observer(() => {
         rightButtons={[NotifyListTopbarRightButton]}
       />
 
-      {/* {content} */}
+      {content}
     </Container>
   );
 });
