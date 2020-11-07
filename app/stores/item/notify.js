@@ -12,7 +12,7 @@ class NotifyItemStore {
   @observable item = []
 
   constructor() {
-    makeAutoObservable(this);
+    // makeAutoObservable(this);
   }
 
   @action loadData = async (id) => {
