@@ -1,29 +1,27 @@
-import { action, observable } from 'mobx';
+import React from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import { action, observable, makeAutoObservable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
 import NotifyListItemModel from '../models/notifyListItem';
 
-
-// const processOrders = (data, params = {}) => data.map(item => {
-//   const { date, timeStart, timeEnd } = ParseDateTimePeriod(item.date_start, item.date_end);
-
-//   return { ...item, period: `${date} ${timeStart}-${timeEnd}`, ...params };
-// });
-
-
-class NotifyListStoreSample {
-
-  state = null
+class NotifyStore {
 
   @observable isLoading = true
   @observable list = []
 
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   @action loadData = async () => {
     this.isLoading = true;
-console.log('START LOAD');
-    await this.requestData();
-console.log('FINISH LOAD');
+    console.log('START LOAD');
+
+    let responce = await this.requestData();
+    this.list = responce;
+    console.log('FINISH LOAD');
     this.isLoading = false;
   }
 
@@ -32,7 +30,8 @@ console.log('FINISH LOAD');
     this.list = [];
     this.isRefreshing = true;
 
-    await this.requestData();
+    let responce = await this.requestData();
+    this.list = responce;
 
     this.isRefreshing = false;
   }
@@ -51,9 +50,11 @@ console.log('FINISH LOAD');
     // const responseNotify = processOrders(
     //   response.data.orders
     // );
-   this.list = ValidateResponseData(response.data.notify, NotifyListItemModel);
+    return ValidateResponseData(response.data.notify, NotifyListItemModel);
   }
+}
 
-};
+const notifyStore = new NotifyStore();
+const NotifyStoreContext = React.createContext(notifyStore);
 
-export default NotifyListStoreSample;
+export default NotifyStoreContext;

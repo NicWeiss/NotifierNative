@@ -5,14 +5,12 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 import Colors from 'app/constants/Colors';
-// import { card, cash, doneType, prePaymentFull, prePaymentPart, paid } from 'app/constants/Common';
 import { NavigateTo } from 'app/helpers';
 
 
-const OrderListItem = ({ item, index }, isMultiselectActive, selectItem) => {
+const NotifyListItem = ({ item, index }, isMultiselectActive, selectItem) => {
 
-  const navigateToOrder = () => NavigateTo('Notify', { notifyId: item.id });
-  const handleSelectItem = () => selectItem(index);
+  const handleSelectItem = () => NavigateTo('Notify', { notifyId: item.id });
 
   let color = Colors.red;
 
@@ -128,4 +126,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default OrderListItem;
+export default NotifyListItem;

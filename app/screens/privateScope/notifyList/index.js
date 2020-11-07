@@ -1,18 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import Orientation from 'react-native-orientation-locker';
-import { Text } from 'react-native';
 
-import { Container, Header, LoaderScreen, Tabs } from 'app/components';
+import { Container, Header, Tabs } from 'app/components';
 
-// import OrderListInWorkContext from 'app/stores/orderList/inWork';
-import NotifyListNotifyContext from 'app/stores/notifyList/notify';
-// import OrderListNoCourierContext from 'app/stores/orderList/noCourier';
-import UserStoreContext from 'app/stores/user';
+import NotifyStoreContext from 'app/stores/lists/notify';
+import AcceptorsStoreContext from 'app/stores/lists/acceptors';
+
 
 import NotifyListTopbarLeftButton from './topbarLeftButton';
 import NotifyListTopbarRightButton from './topbarRightButton';
-// import OrderListNoDataMessage from './noDataMessage';
 
 import NotifyListNotifyTab from './tabs/notify';
 import NotifyListAcceptorsTab from './tabs/acceptors';
@@ -20,33 +17,19 @@ import NotifyListAcceptorsTab from './tabs/acceptors';
 
 const NotifyListScreen = observer(() => {
 
-  const { loadData: loadNotify } = useContext(NotifyListNotifyContext);
-  // const { loadData: loadacceptors } = useContext(NotifyListScreenAcceptorsContext);
-  // const { loadData: loadUserData } = useContext(UserStoreContext);
+  const { loadData: loadNotify } = useContext(NotifyStoreContext);
+  const { loadData: loadacceptors } = useContext(AcceptorsStoreContext);
 
   useEffect(() => {
     Orientation.lockToPortrait();
 
-    // loadUserData();
     loadNotify();
-    // loadacceptors();
+    loadacceptors();
   }, []);
 
 
   let names = ['Уведомления', 'Получатели'];
   let funcComponents = [NotifyListNotifyTab, NotifyListAcceptorsTab];
-
-  let tabs = [
-    { name: 'Уведомления', funcComponent: NotifyListNotifyTab },
-    { name: 'Получатели', funcComponent: NotifyListAcceptorsTab }
-  ];
-
-  let content = (
-    <Tabs
-      tabNames={names}
-      tabFuncComponents={funcComponents}
-    />
-  );
 
   return (
     <Container>
@@ -55,8 +38,10 @@ const NotifyListScreen = observer(() => {
         leftButtons={[NotifyListTopbarLeftButton]}
         rightButtons={[NotifyListTopbarRightButton]}
       />
-
-      {content}
+      <Tabs
+        tabNames={names}
+        tabFuncComponents={funcComponents}
+      />
     </Container>
   );
 });

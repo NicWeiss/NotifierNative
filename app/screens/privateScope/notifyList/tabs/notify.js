@@ -1,18 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import NotifyListNotifyContext from 'app/stores/notifyList/notify';
+import NotifyStoreContext from 'app/stores/lists/notify';
 
 import NotifyListSampleTab from './tabSample';
 
 
-const NotifyListNotifyTab = observer(props => {
+const NotifyListNotifyTab = observer( () => {
 
-  const { list, isLoading } = useContext(NotifyListNotifyContext);
-
-
-  console.log('NOTIFY COUNT ----------->', list.length);
-  console.log('IS LOADING?', isLoading);
+  let { list, isLoading } = useContext(NotifyStoreContext);
 
   return (
     <NotifyListSampleTab
