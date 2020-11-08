@@ -7,5 +7,6 @@ export default {
   white: '#fff',
   black: '#222',
   darkOrange: '#853907',
-  darkestdOrange: '#4d392c'
+  darkestdOrange: '#4d392c',
+  lightGray: '#ccc'
 };

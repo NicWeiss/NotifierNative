@@ -6,6 +6,7 @@ import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
 import NotifyListItemModel from '../models/notifyListItem';
 
+
 class NotifyItemStore {
 
   @observable isLoading = true

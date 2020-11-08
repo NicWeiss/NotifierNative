@@ -1,14 +1,16 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Status from 'app/components/notifyItem/status';
+import DateTimeFromTimestamp from 'app/components/dateTimeFromTimestamp';
 
 import Colors from 'app/constants/Colors';
+import Periodic from 'app/constants/Periodic';
 import { NavigateTo } from 'app/helpers';
 
 
-const NotifyListItem = ({ item, index }, isMultiselectActive, selectItem) => {
+const NotifyListItem = ({ item, index }) => {
 
   const handleSelectItem = () => NavigateTo('Notify', { notifyId: item.id });
 
@@ -35,23 +37,34 @@ const NotifyListItem = ({ item, index }, isMultiselectActive, selectItem) => {
 
       <View style={styles.itemInnerWrapper}>
         <View style={[styles.itemLeftPart, { width: '70%' }]}>
-          <View style={[styles.itemInfoRow, { marginBottom: 1 }]}>
-            <Text style={styles.itemId}>
-              #{item.id} {item.name}
+          <View style={[styles.itemInfoRow, { marginBottom: 10 }]}>
+            <Text style={styles.itemName}>
+              {item.name}
             </Text>
 
           </View>
 
-          <View style={[styles.itemInfoRow, { marginBottom: 8 }]}>
-            <Text style={styles.itemExternalId}>
-              {item.periodic}
+          <View style={[styles.itemInfoRow, { marginBottom: 4 }]}>
+            <Icon name='repeat' style={styles.icon} />
+            <Text style={styles.itemPeriodic}>
+              {Periodic.get_periodic[item.periodic]}
             </Text>
           </View>
 
-          <View style={[styles.itemInfoRow, { marginBottom: 8 }]}>
-            <Text style={styles.itemExternalId}>
-              {item.day_of_week} {item.date} {item.time}
-            </Text>
+          {
+            item.day_of_week &&
+            <View style={[styles.itemInfoRow, { marginBottom: 4 }]}>
+              <Icon name='calendar-week' style={styles.icon} />
+              <Text style={styles.itemWeekDay}>
+                {Periodic.get_day_of_week[item.day_of_week]}
+              </Text>
+            </View>
+          }
+
+          <View style={[styles.itemInfoRow, { marginBottom: 0 }]}>
+            <Icon name='clock' style={styles.icon} />
+            <DateTimeFromTimestamp timestamp={item.date} type='date' />
+            <DateTimeFromTimestamp timestamp={item.time} type='time' />
           </View>
 
         </View>
@@ -59,9 +72,7 @@ const NotifyListItem = ({ item, index }, isMultiselectActive, selectItem) => {
         <View style={styles.itemRightPart}>
           <View style={styles.itemInfoRow}>
 
-            <Text style={[styles.itemPrice, { color }]}>
-              {item.status}
-            </Text>
+            <Status status={item.status} />
           </View>
         </View>
       </View>
@@ -74,13 +85,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: '100%',
     paddingVertical: 18,
     paddingLeft: 4,
     borderBottomWidth: 1,
     borderStyle: 'solid',
-    borderBottomColor: Colors.grayBlueMostLight,
-    marginLeft: 20,
+    borderBottomColor: Colors.lightGray,
+    marginLeft: 10,
+    marginRight: 10
   },
   itemInnerWrapper: {
     flexDirection: 'row',
@@ -98,31 +109,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  itemId: {
-    fontSize: 16,
-    color: Colors.blackLight
+  itemName: {
+    fontSize: 18,
+    color: Colors.black
   },
-  itemExternalId: {
+  itemPeriodic: {
     fontSize: 14,
     color: Colors.gray,
   },
-  itemIconMain: {
-    marginLeft: 5,
-    fontSize: 22,
-    color: Colors.red
-  },
-  itemIcon: {
-    marginRight: 5,
-    fontSize: 15,
-    color: Colors.gray
-  },
-  itemInfo: {
-    color: Colors.gray,
-    fontSize: 14,
-  },
-  itemPrice: {
+  icon: {
+    marginRight: 8,
+    color: Colors.orange,
     fontSize: 16
-  }
+  },
 });
 
 
