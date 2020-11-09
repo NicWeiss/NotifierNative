@@ -8,9 +8,10 @@ import UserModel from './models/user';
 
 
 class UserStore {
-  @observable isLoading = true
-  @observable isRefreshing = false
-  @observable user = { ...UserModel }
+  @observable isLoading = true;
+  @observable isRefreshing = false;
+  @observable user = { ...UserModel };
+
 
   @action logIn = (login, password) => {
 

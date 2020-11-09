@@ -3,13 +3,21 @@ import React from 'react';
 import { Container, ScreenWrapper } from 'app/components';
 import { FlalistWrapper } from 'app/components/lists';
 import { NotifyListItem } from 'app/components/listItems';
+import { AcceptorsListItem } from 'app/components/listItems';
 
 
 const NotifyListSampleTab = ({
-  list, isLoading, isRefreshing, emptyDataMessage
+  list, isLoading, isRefreshing, emptyDataMessage, refreshData, type
 }) => {
 
-  handleRenderItem = item => NotifyListItem(item);
+  handleRenderItem = item => {
+    console.log(type);
+    if (type == 'notify') {
+      return NotifyListItem(item);
+    } else if (type == 'acceptors') {
+      return AcceptorsListItem(item);
+    }
+  }
 
   return (
     <ScreenWrapper
@@ -18,15 +26,16 @@ const NotifyListSampleTab = ({
       isDataEmpty={list.length === 0}
       emptyDataMessage={emptyDataMessage}
     >
-       <Container>
-         <FlalistWrapper
+      <Container>
+        <FlalistWrapper
           list={list}
           renderItem={handleRenderItem}
           isRefreshing={isRefreshing}
+          onRefresh={refreshData}
           isLoading={isLoading}
         />
-       </Container>
-     </ScreenWrapper>
+      </Container>
+    </ScreenWrapper>
   );
 };
 

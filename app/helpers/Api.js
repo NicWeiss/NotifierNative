@@ -32,6 +32,7 @@ export default class Api {
       ...data
     };
 
-    return axios(config);
+    let answer = axios(config);
+    return answer;
   }
 };

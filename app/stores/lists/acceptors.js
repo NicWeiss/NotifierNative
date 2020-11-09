@@ -1,5 +1,5 @@
 import React from 'react';
-import { action, observable, makeAutoObservable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
@@ -8,19 +8,15 @@ import AcceptorsListItemModel from '../models/acceptorsListItem';
 class AcceptorsStore {
 
   @observable isLoading = true
+  @observable isRefreshing = false
   @observable list = []
-
-  constructor() {
-    // makeAutoObservable(this);
-  }
 
   @action loadData = async () => {
     this.isLoading = true;
-    console.log('START LOAD');
 
     let responce = await this.requestData();
     this.list = responce;
-    console.log('FINISH LOAD');
+
     this.isLoading = false;
   }
 
@@ -46,9 +42,6 @@ class AcceptorsStore {
       return;
     }
 
-    // const responseNotify = processOrders(
-    //   response.data.orders
-    // );
     return ValidateResponseData(response.data.acceptor, AcceptorsListItemModel);
   }
 }

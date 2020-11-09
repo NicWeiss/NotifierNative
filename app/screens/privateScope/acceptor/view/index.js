@@ -1,12 +1,12 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 
 import Colors from 'app/constants/Colors';
 
 import styles from './styles';
 
 
-const NotifyView = ({
+const AcceptorView = ({
  item, isLoading
 }) => {
 
@@ -22,14 +22,9 @@ const NotifyView = ({
     <View style={styles.profile}>
     <Text> #{item.id}</Text>
       <Text>Статус: {item.status}</Text>
-      <Text>Периодичность: {item.periodic}</Text>
       <Text>Название: {item.name}</Text>
-      <Text>Описание: {item.text}</Text>
-      <Text>День недели: {item.day_of_week}</Text>
-      <Text>Дата и время: {item.date} {item.time}</Text>
-      <Text>Список получателей: {item.acceptorsList.map(item => {return item.name}).join(", ")}</Text>
     </View>
   );
 };
 
-export default NotifyView;
+export default AcceptorView;

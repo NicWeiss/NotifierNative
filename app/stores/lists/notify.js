@@ -1,6 +1,5 @@
 import React from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { action, observable, makeAutoObservable } from 'mobx';
+import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
@@ -9,19 +8,15 @@ import NotifyListItemModel from '../models/notifyListItem';
 class NotifyStore {
 
   @observable isLoading = true
+  @observable isRefreshing = false
   @observable list = []
-
-  constructor() {
-    // makeAutoObservable(this);
-  }
 
   @action loadData = async () => {
     this.isLoading = true;
-    console.log('START LOAD');
 
     let responce = await this.requestData();
     this.list = responce;
-    console.log('FINISH LOAD');
+
     this.isLoading = false;
   }
 
@@ -47,9 +42,6 @@ class NotifyStore {
       return;
     }
 
-    // const responseNotify = processOrders(
-    //   response.data.orders
-    // );
     return ValidateResponseData(response.data.notify, NotifyListItemModel);
   }
 }

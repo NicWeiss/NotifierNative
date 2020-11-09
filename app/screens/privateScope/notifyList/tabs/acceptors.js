@@ -8,13 +8,16 @@ import NotifyListSampleTab from './tabSample';
 
 const NotifyListAcceptorsTab = observer( () => {
 
-  let { list, isLoading } = useContext(AcceptorsStoreContext);
+  let { list, isLoading, isRefreshing,  refreshData } = useContext(AcceptorsStoreContext);
 
   return (
     <NotifyListSampleTab
       emptyDataMessage='Список получателей пуст'
       isLoading={isLoading}
       list={list}
+      isRefreshing={isRefreshing}
+      refreshData={refreshData}
+      type='acceptors'
     />
   );
 });

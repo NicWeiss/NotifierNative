@@ -3,10 +3,10 @@ import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
-import NotifyListItemModel from '../models/notifyListItem';
+import AcceptorListItemModel from '../models/acceptorsListItem';
 
 
-class NotifyItemStore {
+class AcceptorItemStore {
 
   @observable isLoading = true
   @observable isRefreshing = false;
@@ -17,9 +17,10 @@ class NotifyItemStore {
     this.isLoading = true;
 
     let responce = await this.requestData(id);
-    this.item = responce;
-
-    this.isLoading = false;
+    if (responce) {
+      this.item = responce;
+      this.isLoading = false;
+    }
   }
 
   @action refreshData = async () => {
@@ -37,18 +38,18 @@ class NotifyItemStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/notify/' + id);
+      response = await Api.doRequest('GET', '/acceptor/' + id);
     } catch (error) {
       ProcessErrors(error);
-
+      console.log('ERROR -------->>>>>>', error);
       return;
     }
-
-    return ValidateResponseData(response.data.notify, NotifyListItemModel);
+    console.log('DATA ---------------------->', response.data.acceptor);
+    return ValidateResponseData(response.data.acceptor, AcceptorListItemModel);
   }
 }
 
-const notifyItemStore = new NotifyItemStore();
-const NotifyItemContext = React.createContext(notifyItemStore);
+const acceptorItemStore = new AcceptorItemStore();
+const AcceptorItemContext = React.createContext(acceptorItemStore);
 
-export default NotifyItemContext;
+export default AcceptorItemContext;

@@ -32,7 +32,7 @@ const LoginScreen = observer(props => {
     checkAuth();
   }, []);
 
-  const navigateToNotifyList = () => NavigateTo('NotifyList');
+  const navigateToNotifyList = () => NavigateTo('NotifyList', {reset: true});
 
   return (
     <LoginView
