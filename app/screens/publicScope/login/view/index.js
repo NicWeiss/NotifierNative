@@ -7,7 +7,7 @@ import {
 import AsyncStorage from '@react-native-community/async-storage';
 
 import Colors from 'app/constants/Colors';
-import Logo from 'app/assets/images/logo.jpg';
+import Logo from 'app/assets/images/logo.png';
 
 import styles from './styles';
 
@@ -38,8 +38,8 @@ export default class LoginView extends PureComponent {
 
   componentDidMount() {
     setTimeout(() => Animated.timing(this.loginFormImageContainerHeight, {
-      toValue: 0,
-      duration: 500,
+      toValue: 40,
+      duration: 2000,
       useNativeDriver: false
     }).start(), 1000);
   }
@@ -48,18 +48,6 @@ export default class LoginView extends PureComponent {
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
-
-  keyboardDidShow = () => Animated.timing(this.loginFormWrapperMarginBottom, {
-    toValue: Platform.OS === 'android' ? 0 : 180,
-    duration: 250,
-    useNativeDriver: false
-  }).start()
-
-  keyboardDidHide = () => Animated.timing(this.loginFormWrapperMarginBottom, {
-    toValue: 0,
-    duration: 250,
-    useNativeDriver: false
-  }).start()
 
   onChangeLogin = login => this.setState({ login, errorMessage: '' })
   onChangePassword = password => this.setState({ password, errorMessage: '' })

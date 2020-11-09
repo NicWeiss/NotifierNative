@@ -17,21 +17,23 @@ export default StyleSheet.create({
   },
   loginFormImageContainer: {
     position: 'absolute',
-    top: -20,
+    top: 20,
     justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    // alignItems: 'center',
+    // height: 1000,
+    // width: '100%',
     backgroundColor: Colors.orange,
     zIndex: 2,
   },
   loginFormImage: {
-    width: 290,
-    height: 130
+    top: -40,
+    width: 300,
+    height: 200
   },
   loginFormContainer: {
     position: 'absolute',
     justifyContent: 'flex-end',
-    height: 320,
+    height: 420,
     width: '70%',
     zIndex: 1,
   },
