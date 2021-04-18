@@ -37,7 +37,7 @@ class NotifyItemStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/notify/' + id);
+      response = await Api.doRequest('GET', '/notifies/' + id);
     } catch (error) {
       ProcessErrors(error);
 

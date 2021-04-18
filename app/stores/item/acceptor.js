@@ -38,7 +38,7 @@ class AcceptorItemStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/acceptor/' + id);
+      response = await Api.doRequest('GET', '/acceptors/' + id);
     } catch (error) {
       ProcessErrors(error);
       console.log('ERROR -------->>>>>>', error);

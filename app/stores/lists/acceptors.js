@@ -35,7 +35,7 @@ class AcceptorsStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/acceptor');
+      response = await Api.doRequest('GET', '/acceptors?page=1&per_page=25');
     } catch (error) {
       ProcessErrors(error);
 

@@ -23,7 +23,7 @@ const NotifyListSampleTab = ({
     <ScreenWrapper
       isTab={true}
       isLoading={isLoading}
-      isDataEmpty={list.length === 0}
+      isDataEmpty={!list || list.length === 0}
       emptyDataMessage={emptyDataMessage}
     >
       <Container>

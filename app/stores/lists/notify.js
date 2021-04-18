@@ -35,7 +35,7 @@ class NotifyStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/notify');
+      response = await Api.doRequest('GET', '/notifies?page=1&per_page=25');
     } catch (error) {
       ProcessErrors(error);
 
