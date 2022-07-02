@@ -1,4 +1,5 @@
 import Api from './Api';
+import AwaitableAnimation from './AwaitableAnimation';
 import ClearStorage from './ClearStorage';
 import ClearObject from './ClearObject';
 import NavigateTo from './NavigateTo';
@@ -14,7 +15,7 @@ import ValidateResponseData from './ValidateResponseData';
 
 
 export {
-  Api, ClearStorage, ClearObject, NavigateTo, ParseDate,
+  Api, AwaitableAnimation, ClearStorage, ClearObject, NavigateTo, ParseDate,
   ParseDateTimePeriod, PopScreen, PopToLoginScreen, ProcessDateToStrings,
   ProcessErrors, SaveLoginScreenComponentId, ShowToast, ValidateResponseData
 };

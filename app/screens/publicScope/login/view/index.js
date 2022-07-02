@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { AwaitableAnimation } from 'app/helpers';
 import Colors from 'app/constants/Colors';
 import Logo from 'app/assets/images/logo.png';
 
@@ -27,21 +28,48 @@ export default class LoginView extends PureComponent {
       password: '',
       errorMessage: '',
       isLoading: false,
+      isHideInputs: true,
     }
-
+    setTimeout(() => this.checkAuth(this), 1);
     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this.keyboardDidShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', this.keyboardDidHide);
 
-    this.loginFormWrapperMarginBottom = new Animated.Value(0);
-    this.loginFormImageContainerHeight = new Animated.Value(340);
+    this.inputsOpacity = new Animated.Value(0);
+    this.loginFormHeight = new Animated.Value(1);
   }
 
-  componentDidMount() {
-    setTimeout(() => Animated.timing(this.loginFormImageContainerHeight, {
-      toValue: 40,
-      duration: 2000,
-      useNativeDriver: false
-    }).start(), 1000);
+
+  checkAuth = async (context) => {
+    console.log('Checking!');
+
+    const session = await AsyncStorage.getItem('session');
+    console.log(session);
+
+    if (typeof session != 'string') {
+      console.log('Session not found! Show inputs!');
+      this.showInputs();
+      return;
+    }
+
+    try {
+      await this.props.checkSession()
+    } catch (e) {
+      console.log(e)
+      console.log('Session not verified! Show inputs!');
+      this.showInputs();
+      this.props.clearSession();
+      return;
+    }
+
+    console.log('Session valid!');
+    context.props.navigateToNotifyList();
+  };
+
+
+  async showInputs() {
+    this.setState({ isHideInputs: false });
+    await AwaitableAnimation(this.loginFormHeight, 300, 1000)
+    await AwaitableAnimation(this.inputsOpacity, 1, 1000)
   }
 
   componentWillUnmount() {
@@ -64,10 +92,11 @@ export default class LoginView extends PureComponent {
     await AsyncStorage.setItem('secret', password);
 
     try {
-      let responce = await this.props.logIn(login, password);
-      console.log(responce.data.session);
-      console.log(responce.data.user);
-      await AsyncStorage.setItem('session', responce.data.session);
+      let response = await this.props.logIn(login, password);
+      console.log(response.data.session);
+      console.log(response.data.user);
+
+      await AsyncStorage.setItem('session', response.data.session);
 
       this.onChangeLogin('');
       this.onChangePassword('');
@@ -89,7 +118,7 @@ export default class LoginView extends PureComponent {
   }
 
   render() {
-    const { login, password, errorMessage, isLoading } = this.state;
+    const { login, password, errorMessage, isLoading, isHideInputs } = this.state;
     const isSubmitDisabled = !login || !password || !!errorMessage || isLoading;
 
     return (
@@ -97,68 +126,73 @@ export default class LoginView extends PureComponent {
         <Animated.View
           style={[
             styles.loginFormWrapper,
-            { marginBottom: this.loginFormWrapperMarginBottom }
+            { height: this.loginFormHeight }
           ]}
         >
-          <Animated.View
+          <View
             style={[
-              styles.loginFormImageContainer,
-              { height: this.loginFormImageContainerHeight }
+              styles.loginFormImageContainer
             ]}
           >
             <Image source={Logo} style={styles.loginFormImage} />
-          </Animated.View>
-
-          <View style={styles.loginFormContainer}>
-            <View style={[styles.loginFormInputWrapper, styles.loginFormInputWrapperFirst]}>
-              <TextInput
-                placeholder='Логин'
-                placeholderTextColor={Colors.grayBlueLight}
-                textContentType='username'
-                autoCapitalize='none'
-                style={styles.loginFormInput}
-                value={this.state.login}
-                onChangeText={this.onChangeLogin}
-              />
-            </View>
-
-            <View style={styles.loginFormInputWrapper}>
-              <TextInput
-                placeholder='Пароль'
-                placeholderTextColor={Colors.grayBlueLight}
-                textContentType='password'
-                autoCapitalize='none'
-                secureTextEntry={true}
-                style={styles.loginFormInput}
-                value={this.state.password}
-                onChangeText={this.onChangePassword}
-              />
-            </View>
-
-            <View style={styles.loginFormErrorWrapper}>
-              {
-                !!errorMessage &&
-                <Text style={styles.loginFormError}>
-                  {errorMessage}
-                </Text>
-              }
-            </View>
-
-            <TouchableOpacity
-              style={[styles.loginFormAction, isSubmitDisabled && styles.loginFormActionDisabled]}
-              onPress={this.handleFormSubmit}
-              disabled={isSubmitDisabled}
-              activeOpacity={0.8}
-            >
-              {
-                isLoading ?
-                  <ActivityIndicator size='small' color='#fff' /> :
-                  <Text style={styles.loginFormActionText}>
-                    Войти
-                  </Text>
-              }
-            </TouchableOpacity>
           </View>
+
+          {
+            !isHideInputs &&
+            <Animated.View style={[
+              styles.loginFormContainer,
+              { opacity: this.inputsOpacity }
+            ]}>
+              <View style={[styles.loginFormInputWrapper, styles.loginFormInputWrapperFirst]}>
+                <TextInput
+                  placeholder='Email'
+                  placeholderTextColor={Colors.grayBlueLight}
+                  textContentType='username'
+                  autoCapitalize='none'
+                  style={styles.loginFormInput}
+                  value={this.state.login}
+                  onChangeText={this.onChangeLogin}
+                />
+              </View>
+
+              <View style={styles.loginFormInputWrapper}>
+                <TextInput
+                  placeholder='Pass'
+                  placeholderTextColor={Colors.grayBlueLight}
+                  textContentType='password'
+                  autoCapitalize='none'
+                  secureTextEntry={true}
+                  style={styles.loginFormInput}
+                  value={this.state.password}
+                  onChangeText={this.onChangePassword}
+                />
+              </View>
+
+              <View style={styles.loginFormErrorWrapper}>
+                {
+                  !!errorMessage &&
+                  <Text style={styles.loginFormError}>
+                    {errorMessage}
+                  </Text>
+                }
+              </View>
+
+              <TouchableOpacity
+                style={[styles.loginFormAction, isSubmitDisabled && styles.loginFormActionDisabled]}
+                onPress={this.handleFormSubmit}
+                disabled={isSubmitDisabled}
+                activeOpacity={0.8}
+              >
+                {
+                  isLoading ?
+                    <ActivityIndicator size='small' color='#fff' /> :
+                    <Text style={styles.loginFormActionText}>
+                      Let me in
+                    </Text>
+                }
+              </TouchableOpacity>
+            </Animated.View>
+          }
         </Animated.View>
       </View>
     );

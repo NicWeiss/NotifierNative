@@ -12,32 +12,35 @@ import LoginView from './view';
 
 const LoginScreen = observer(props => {
 
-  const { logIn } = useContext(UserStoreContext);
+  const navigateToNotifyList = () => NavigateTo('NotifyList', { reset: true });
+  const { logIn, checkSession, clearSession } = useContext(UserStoreContext);
+  SaveLoginScreenComponentId(props.componentId);
+  // let isAuthCheck = true;
 
-  const checkAuth = async () => {
-    const session = await AsyncStorage.getItem('session');
+  // const checkAuth = async () => {
+  //   const session = AsyncStorage.getItem('session');
 
-    SaveLoginScreenComponentId(props.componentId);
-
-    if (!!session) {
-      console.log('session found!');
-      navigateToNotifyList();
-    }
-  };
+  //   if (session && !!session.session) {
+  //     console.log('session found!');
+  //     navigateToNotifyList();
+  //   }
+  // };
 
   useEffect(() => {
     Orientation.lockToPortrait();
     SplashScreen.hide();
 
-    checkAuth();
+    // checkAuth();
   }, []);
 
-  const navigateToNotifyList = () => NavigateTo('NotifyList', {reset: true});
 
   return (
     <LoginView
       logIn={logIn}
+      clearSession={clearSession}
+      checkSession={checkSession}
       navigateToNotifyList={navigateToNotifyList}
+    // isAuthCheck={isAuthCheck}
     />
   );
 });

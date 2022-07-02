@@ -11,7 +11,7 @@ const baseURL = `${domain}/${apiPrefix}`;
 export default class Api {
 
   static async doRequest(method, url, data = null) {
-    const session = await AsyncStorage.getItem('session');
+    const session = await AsyncStorage.getItem('session') || '';
 
     let headers = {
       'session': session

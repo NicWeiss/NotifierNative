@@ -1,5 +1,5 @@
 {
-  "type": "prod",
+  "type": "dev",
   "domain": "https://notifier.nic-weiss.tech",
   "apiPrefix": "api"
 }
