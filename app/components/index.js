@@ -6,5 +6,5 @@ import ScreenWrapper from './screenWrapper';
 
 
 export {
- Container, Header, Tabs, TopbarButton, ScreenWrapper
+  Container, Header, Tabs, TopbarButton, ScreenWrapper
 };

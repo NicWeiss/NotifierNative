@@ -40,9 +40,11 @@ export default class Header extends PureComponent {
         <View style={styles.headerSideInnerBlock}>
           {
             leftButtons.length > 0 ?
-              leftButtons.map((LeftButton, index) => (
-                <LeftButton key={`LeftButton_${index}`} />
-              )) :
+              leftButtons.map((Button, index) => {
+                const ButtonComponent = Button.component;
+                const customPprops = Button.props || {}
+                return <ButtonComponent key={`LeftButton_${index}`} {...customPprops} />
+              }) :
               <TopbarButton
                 iconName='keyboard-backspace'
                 action={this.handleGetBack}

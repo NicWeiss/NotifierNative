@@ -9,7 +9,7 @@ export default async (animation, toValue, duration) => {
         duration: duration,
         useNativeDriver: false
       }).start();
-    }, 1);
+    }, 0);
 
     setTimeout(() => { resolve() }, duration);
   });
