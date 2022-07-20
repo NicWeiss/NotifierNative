@@ -1,5 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
+import { Alert } from 'react-native';
 
 import { Container, ScreenWrapper } from 'app/components';
 import { FlalistWrapper } from 'app/components/lists';
@@ -11,11 +12,11 @@ import CategoryListItem from './categoryListItem';
 
 
 const CategoryList = observer(() => {
-  const { getlist, isLoading, isRefreshing, refreshData, updateById } = useContext(CategoryStoreContext);
-  const { changeVisibility } = useContext(CategoryItemContext);
+  const { getlist, isLoading, isRefreshing, refreshData, updateInList, deleteFromList } = useContext(CategoryStoreContext);
+  const { changeVisibility, deleteItem } = useContext(CategoryItemContext);
 
   const emptyDataMessage = 'Список категорий пуст';
-  const [extraData] = React.useState(new Date())
+  let [extraData] = React.useState(new Date())
   let list = getlist()
 
   const onChange = (index, item) => {
@@ -25,7 +26,31 @@ const CategoryList = observer(() => {
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)
-    updateById(index, newItem)
+    updateInList(index, newItem)
+    list = getlist()
+  }
+
+  const onDelete = (index, item) => {
+    Alert.alert("", `Catedory ${item.name} will be deleted`, [
+      {
+        text: "Cancel",
+        onPress: () => { },
+        style: "cancel"
+      },
+      {
+        text: "With",
+        onPress: () => deleteCategory(index, item, true)
+      },
+      {
+        text: "Without",
+        onPress: () => deleteCategory(index, item, false)
+      }
+    ]);
+  }
+
+  const deleteCategory = async (index, item, withNotify) => {
+    await deleteItem(item, withNotify)
+    deleteFromList(index)
     list = getlist()
   }
 
@@ -45,6 +70,7 @@ const CategoryList = observer(() => {
               index={index}
               onChange={onChange}
               onChangeVisibility={onChangeVisibility}
+              onDelete={onDelete}
             />
           )}
           isRefreshing={isRefreshing}

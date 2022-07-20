@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import { AwaitableAnimation } from 'app/helpers';
-import { Animated, Text, Pressable } from 'react-native';
+import { Alert, Animated, BackHandler, Pressable } from 'react-native';
+
 
 import Options from './options';
 import Profile from './profile';
@@ -21,8 +22,27 @@ export default class SideBarMenu extends PureComponent {
       opacity: new Animated.Value(0),
       containerWidth: new Animated.Value(5),
       isClosing: false,
+      isShow: false,
     };
+
+    setTimeout(() => {
+      BackHandler.addEventListener(
+        "hardwareBackPress",
+        this.backAction.bind(this)
+      );
+    }, 100);
   }
+
+  backAction() {
+    console.log(this);
+    if (this.state.isShow) {
+      this.hideSideBar();
+    } else {
+      return false
+    }
+
+    return true;
+  };
 
   async showSideBar() {
     if (this.state.isClosing) {
@@ -34,6 +54,7 @@ export default class SideBarMenu extends PureComponent {
     AwaitableAnimation(this.state.opacity, 0.5, 150)
     this.state.sidebarLeftX = 0;
     this.state.isLock = false;
+    this.state.isShow = true;
   }
 
   async hideSideBar() {
@@ -42,6 +63,7 @@ export default class SideBarMenu extends PureComponent {
     AwaitableAnimation(this.state.containerWidth, 5, 1)
     this.state.sidebarLeftX = -70;
     this.state.isLock = false;
+    this.state.isShow = false;
   }
 
   onSwipeLeft(gestureState) {

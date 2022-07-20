@@ -12,6 +12,8 @@ class CategoryItemStore {
   @observable isRefreshing = false;
   @observable item = []
 
+  @action getItem = () => this.item;
+
   @action clear = () => {
     this.item = [];
     this.isRefreshing = false;
@@ -50,7 +52,14 @@ class CategoryItemStore {
     this.isLoading = false;
   }
 
-  @action getItem = () => this.item;
+
+  @action deleteItem = async (item, withNotify) => {
+    if (item) {
+      this.item = item;
+    }
+
+    this.deleteData(withNotify)
+  };
 
   requestData = async (id) => {
     let response = null;
@@ -67,7 +76,6 @@ class CategoryItemStore {
   }
 
   updateData = async () => {
-
     let response = null;
 
     try {
@@ -82,6 +90,24 @@ class CategoryItemStore {
     }
 
     return ValidateResponseData(response.data.category, CategoryModel);
+  }
+
+  deleteData = async (withNotify = false) => {
+    try {
+      if (withNotify) {
+        await Api.doRequest('DELETE', '/notifies/delete_by_category_id',
+          { 'data': { 'category_id': this.item.id } }
+        );
+      } else {
+        await Api.doRequest('DELETE', '/notifies/reset_from_category_id',
+          { 'data': { 'category_id': this.item.id } }
+        );
+      }
+
+      await Api.doRequest('DELETE', '/categories/' + this.item.id);
+    } catch (error) {
+      ProcessErrors(error);
+    }
   }
 }
 

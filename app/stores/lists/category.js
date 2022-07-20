@@ -33,8 +33,12 @@ class CategoryStore {
 
   @action getlist = () => this.list;
 
-  @action updateById = (index, item) => {
+  @action updateInList = (index, item) => {
     this.list[index] = item
+  }
+
+  @action deleteFromList = (index) => {
+    this.list[index] = null
   }
 
   requestData = async () => {

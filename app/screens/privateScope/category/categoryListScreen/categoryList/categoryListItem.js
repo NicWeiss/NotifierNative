@@ -6,7 +6,9 @@ import Colors from 'app/constants/Colors';
 import { NavigateTo } from 'app/helpers';
 
 
-export const CategoryListItem = ({ item, index, onChange, onChangeVisibility }) => {
+export const CategoryListItem = (
+  { item, index, onChange, onChangeVisibility, onDelete }
+) => {
 
   const handleChange = (updatedItem) => {
     onChange(index, updatedItem)
@@ -23,9 +25,17 @@ export const CategoryListItem = ({ item, index, onChange, onChangeVisibility }) 
     onChangeVisibility(index, item)
   }
 
+  const handleDelete = () => {
+    onDelete(index, item)
+  }
+
+  if (!item) {
+    return false
+  }
+
   return (
     <View
-      // onPress={handleSelectItem}
+      onPress={handleSelectItem}
       style={styles.item}
     >
       <TouchableOpacity style={styles.itemLeftPart} onPress={handleSelectItem} >
@@ -45,10 +55,9 @@ export const CategoryListItem = ({ item, index, onChange, onChangeVisibility }) 
           }
         </TouchableOpacity>
 
-
-        <View style={styles.inlineButton}>
+        <TouchableOpacity onPress={handleDelete} style={styles.inlineButton}>
           <Icon name='delete' style={[styles.deleteIcon, styles.icon]} />
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -63,9 +72,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderStyle: 'solid',
     borderBottomColor: Colors.lightGray,
-    marginLeft: 10,
+    marginHorizontal: 10,
+    marginVertical: 5,
     backgroundColor: Colors.white,
-    paddingRight: 10,
+    paddingLeft: 10,
+    // backgroundColor: '#eee'
   },
 
   itemInfoRow: {

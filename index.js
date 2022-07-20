@@ -67,7 +67,8 @@ Navigation.events().registerAppLaunchedListener(async () => {
   });
 
   const backAction = () => {
-    const components = Navigation.store.componentsInstancesById
+    const components = Navigation.concreteNavigation.store.componentsInstancesById
+    // console.log(components);
     if (Object.keys(components).length > 1) {
       return;
     }

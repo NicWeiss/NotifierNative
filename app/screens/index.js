@@ -1,10 +1,10 @@
 import { Navigation } from 'react-native-navigation';
 
 import AcceptorScreen from 'app/screens/privateScope/acceptor';
-import CategoryListScreen from 'app/screens/privateScope/categoryListScreen'
+import CategoryListScreen from 'app/screens/privateScope/category/categoryListScreen'
 import LoginScreen from 'app/screens/publicScope/login';
-import NotifyScreen from 'app/screens/privateScope/notify';
-import NotifyListScreen from 'app/screens/privateScope/notifyListScreen';
+import NotifyScreen from 'app/screens/privateScope/notify/notifyScreen';
+import NotifyListScreen from 'app/screens/privateScope/notify/notifyListScreen';
 import ProfileScreen from 'app/screens/privateScope/profile'
 
 
