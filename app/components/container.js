@@ -8,7 +8,7 @@ const Container = ({ children }) => {
   return (
     <View style={{
       flex: 1,
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       backgroundColor: Colors.white
     }}>
       {children}

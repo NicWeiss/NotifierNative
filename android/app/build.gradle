@@ -184,6 +184,7 @@ android {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.android.support:support-annotations:+'
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

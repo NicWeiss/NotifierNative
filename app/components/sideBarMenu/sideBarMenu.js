@@ -16,18 +16,19 @@ export default class SideBarMenu extends PureComponent {
       isLock: false,
       xOffset: 0,
       xDiff: 0,
-      // sidebarLeft: new Animated.Value(0),
-      // opacity: new Animated.Value(0.7),
-      // containerWidth: new Animated.Value(100)
       sidebarLeftX: -70,
       sidebarLeft: new Animated.Value(-70),
       opacity: new Animated.Value(0),
       containerWidth: new Animated.Value(5),
+      isClosing: false,
     };
   }
 
   async showSideBar() {
-    console.log('show');
+    if (this.state.isClosing) {
+      return;
+    }
+
     await AwaitableAnimation(this.state.containerWidth, 100, 1)
     AwaitableAnimation(this.state.sidebarLeft, 0, 150)
     AwaitableAnimation(this.state.opacity, 0.5, 150)
@@ -36,7 +37,6 @@ export default class SideBarMenu extends PureComponent {
   }
 
   async hideSideBar() {
-    console.log('hide');
     AwaitableAnimation(this.state.sidebarLeft, -70, 150)
     await AwaitableAnimation(this.state.opacity, 0, 150)
     AwaitableAnimation(this.state.containerWidth, 5, 1)
@@ -45,18 +45,28 @@ export default class SideBarMenu extends PureComponent {
   }
 
   onSwipeLeft(gestureState) {
-    console.log('swipe L');
+    if (this.state.isClosing) {
+      return;
+    }
+
     this.state.isLock = true;
     this.hideSideBar();
   }
 
   onSwipeRight(gestureState) {
-    console.log('swipe R');
+    if (this.state.isClosing) {
+      return;
+    }
+
     this.state.isLock = true;
     this.showSideBar();
   }
 
   onTouchMove(e) {
+    if (this.state.isClosing) {
+      return;
+    }
+
     if (this.state.xOffset == 0) {
       this.state.xOffset = e.nativeEvent.pageX;
     }
@@ -79,7 +89,15 @@ export default class SideBarMenu extends PureComponent {
   }
 
   onTouchEnd() {
-    if (!this.state.isLock) {
+    if (this.state.isClosing) {
+      return;
+    }
+
+    console.log(this.state.isLock);
+    console.log(this.state.xDiff);
+    console.log(this.state.xOffset);
+
+    if (!this.state.isLock && this.state.xDiff != 0) {
       if (this.state.xDiff < 30) {
         this.showSideBar();
       } else {
@@ -88,6 +106,16 @@ export default class SideBarMenu extends PureComponent {
     }
 
     this.state.xOffset = 0;
+  }
+
+  hideFromOption() {
+    this.state.isClosing = true;
+    this.state.xDiff = 0;
+    this.hideSideBar();
+
+    setTimeout(() => {
+      this.state.isClosing = false;
+    }, 100);
   }
 
   render() {
@@ -135,7 +163,7 @@ export default class SideBarMenu extends PureComponent {
             }
           ]}>
             <Profile />
-            <Options />
+            <Options context={this} currentScreen={this.props.currentScreen} />
           </Animated.View>
         </GestureRecognizer>
       </Animated.View>
@@ -143,8 +171,3 @@ export default class SideBarMenu extends PureComponent {
   }
 }
 
-// SideBarMenu.options = {
-//   topBar: { visible: false }
-// };
-
-// export default SideBarMenu;

@@ -106,9 +106,9 @@ export default class LoginView extends PureComponent {
       const errorResponse = error.response?.data?.errors;
 
       if (errorResponse) {
-        const errorMessage = errorResponse.map(item => `${item.title}\n${item.detail}`).join();
-
-        this.changeErrorMessage(errorMessage);
+        // const errorMessage = errorResponse.map(item => `${item.title}\n${item.detail}`).join();
+        console.log(errorResponse);
+        this.changeErrorMessage(errorResponse.error);
       } else {
         this.changeErrorMessage('Не удалось установить соединение с сервером. Попробуйте позже.');
       }

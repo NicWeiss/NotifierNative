@@ -3,7 +3,7 @@ import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
-import CategoryListItemModel from '../models/categoryListItem';
+import CategoryModel from '../models/categoryModel';
 
 class CategoryStore {
 
@@ -31,6 +31,12 @@ class CategoryStore {
     this.isRefreshing = false;
   }
 
+  @action getlist = () => this.list;
+
+  @action updateById = (index, item) => {
+    this.list[index] = item
+  }
+
   requestData = async () => {
     let response = null;
 
@@ -42,7 +48,7 @@ class CategoryStore {
       return;
     }
 
-    return ValidateResponseData(response.data.category, CategoryListItemModel);
+    return ValidateResponseData(response.data.category, CategoryModel);
   }
 }
 

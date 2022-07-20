@@ -13,27 +13,6 @@ const ProfileView = ({
 
   let content = null;
 
-  if (isLoading || isRefreshing) {
-    content = (
-      <View style={styles.profileContentContainer}>
-        <ActivityIndicator size='large' color={Colors.orange} />
-      </View>
-    );
-  } else if (user.name === null) {
-    content = (
-      <View style={styles.profileContentContainer}>
-        <Text style={styles.profileEmptyText}>Не удалось загрузить данные пользователя</Text>
-      </View>
-    );
-  } else {
-    content = (
-      <View style={styles.profileKeyValue}>
-        <Text style={styles.profileKey}>Пользователь</Text>
-        <Text style={styles.profileValue}>{user.name}</Text>
-      </View>
-    );
-  }
-
   return (
     <View style={styles.profile}>
 

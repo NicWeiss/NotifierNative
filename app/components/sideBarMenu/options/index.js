@@ -4,11 +4,30 @@ import { View } from 'react-native';
 
 import styles from './styles';
 import Option from './option';
-import { NavigateTo } from 'app/helpers';
+import { NavigateTo, SetRootNavigation } from 'app/helpers';
 
 
-const Options = (props) => {
-  const toSettings = () => { NavigateTo('Profile'); }
+const Options = ({ context, currentScreen }) => {
+  const toNotifyList = async () => {
+    context.hideFromOption();
+    if (currentScreen != 'NotifyListScreen') {
+      SetRootNavigation('NotifyList');
+    }
+  }
+
+  const toCategoryList = async () => {
+    context.hideFromOption();
+    if (currentScreen != 'CategoryListScreen') {
+      SetRootNavigation('CategoryList');
+    }
+  }
+
+  const toSettings = () => {
+    context.hideFromOption();
+    if (currentScreen != 'ProfileScreen') {
+      NavigateTo('Profile');
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -17,12 +36,14 @@ const Options = (props) => {
         iconPack='MaterialCommunity'
         iconName='bell-ring'
         text='Notifies'
+        onPress={toNotifyList}
       />
 
       <Option
         iconPack='Entypo'
         iconName='archive'
         text='Categories'
+        onPress={toCategoryList}
       />
 
       <Option

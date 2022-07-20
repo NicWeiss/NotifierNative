@@ -3,7 +3,7 @@ import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
-import NotifyListItemModel from '../models/notifyListItem';
+import NotifyModel from '../models/notifyModel';
 
 class NotifyStore {
 
@@ -11,10 +11,11 @@ class NotifyStore {
   @observable isRefreshing = false
   @observable list = []
 
-  @action loadData = async () => {
+  @action loadData = async (id = 0) => {
     this.isLoading = true;
+    this.lastId = id
 
-    let responce = await this.requestData();
+    let responce = await this.requestData(id);
     this.list = responce;
 
     this.isLoading = false;
@@ -25,24 +26,41 @@ class NotifyStore {
     this.list = [];
     this.isRefreshing = true;
 
-    let responce = await this.requestData();
+    let responce = await this.requestData(this.lastId);
     this.list = responce;
 
     this.isRefreshing = false;
   }
 
-  requestData = async () => {
+  @action updateListFromDetailView = async (item) => {
+    let targetItemId = null;
+
+    this.list.forEach((element, id) => {
+      if (item.id == element.id) {
+        targetItemId = id;
+      }
+    });
+    this.list[targetItemId] = item;
+  }
+
+  @action getlist = () => this.list;
+
+  @action updateById = (index, item) => {
+    this.list[index] = item
+  }
+
+  requestData = async (id = 0) => {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/notifies?page=1&per_page=25');
+      response = await Api.doRequest('GET', `/notifies?category_id=${id}&page=1&per_page=25`);
     } catch (error) {
       ProcessErrors(error);
 
       return;
     }
 
-    return ValidateResponseData(response.data.notify, NotifyListItemModel);
+    return ValidateResponseData(response.data.notify, NotifyModel);
   }
 }
 

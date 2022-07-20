@@ -9,6 +9,31 @@ const baseURL = `${domain}/${apiPrefix}`;
 
 
 export default class Api {
+  static destructure(obj) {
+    if ([NaN, null, undefined].includes(obj)) {
+      return obj
+    }
+
+    if (['string', 'boolean', 'number'].includes(typeof obj)) {
+      return obj
+    }
+
+    if (Array.isArray(obj)) {
+      return obj.map(element => {
+        return this.destructure(element);
+      });
+    }
+
+    if (typeof obj == 'object') {
+      const simpleObj = {};
+
+      for (let key in obj) {
+        simpleObj[key] = this.destructure(obj[key]);
+      }
+
+      return simpleObj;
+    }
+  }
 
   static async doRequest(method, url, data = null) {
     const session = await AsyncStorage.getItem('session') || '';
@@ -25,7 +50,14 @@ export default class Api {
     console.log(method);
     console.log(baseURL);
     console.log(url);
-    console.log(data);
+
+    try {
+      console.log('----- Data ----');
+      data = this.destructure(data)
+      console.log(JSON.stringify(data, null, 4));
+    } catch (e) {
+      console.log(e);
+    }
 
     const config = {
       headers, method, baseURL, url,

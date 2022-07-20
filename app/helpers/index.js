@@ -10,6 +10,7 @@ import PopToLoginScreen from './PopToLoginScreen';
 import ProcessDateToStrings from './ProcessDateToStrings';
 import ProcessErrors from './ProcessErrors';
 import SaveLoginScreenComponentId from './SaveLoginScreenComponentId';
+import SetRootNavigation from './SetRootNavigation';
 import ShowToast from './ShowToast';
 import ValidateResponseData from './ValidateResponseData';
 
@@ -17,5 +18,6 @@ import ValidateResponseData from './ValidateResponseData';
 export {
   Api, AwaitableAnimation, ClearStorage, ClearObject, NavigateTo, ParseDate,
   ParseDateTimePeriod, PopScreen, PopToLoginScreen, ProcessDateToStrings,
-  ProcessErrors, SaveLoginScreenComponentId, ShowToast, ValidateResponseData
+  ProcessErrors, SaveLoginScreenComponentId, SetRootNavigation,
+  ShowToast, ValidateResponseData
 };

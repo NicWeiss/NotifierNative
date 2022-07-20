@@ -3,10 +3,10 @@ import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
-import NotifyModel from '../models/notifyModel';
+import CategoryModel from '../models/categoryModel';
 
 
-class NotifyItemStore {
+class CategoryItemStore {
 
   @observable isLoading = true
   @observable isRefreshing = false;
@@ -27,8 +27,12 @@ class NotifyItemStore {
     this.isLoading = false;
   }
 
-  @action changeState = async () => {
-    this.item.status = String(this.item.status) == '1' ? '0' : '1';
+  @action changeVisibility = async (item) => {
+    if (item) {
+      this.item = item;
+    }
+
+    this.item.is_hidden = this.item.is_hidden == '1' ? '0' : '1';
     let response = await this.updateData();
     this.item = response;
 
@@ -52,14 +56,14 @@ class NotifyItemStore {
     let response = null;
 
     try {
-      response = await Api.doRequest('GET', '/notifies/' + id);
+      response = await Api.doRequest('GET', '/categories/' + id);
     } catch (error) {
       ProcessErrors(error);
 
       return;
     }
 
-    return ValidateResponseData(response.data.notify, NotifyModel);
+    return ValidateResponseData(response.data.category, CategoryModel);
   }
 
   updateData = async () => {
@@ -68,20 +72,20 @@ class NotifyItemStore {
 
     try {
       response = await Api.doRequest('PUT',
-        '/notifies/' + this.item.id,
+        '/categories/' + this.item.id,
         {
-          data: { notify: this.item }
+          data: { category: this.item }
         });
     } catch (error) {
       ProcessErrors(error);
       return;
     }
 
-    return ValidateResponseData(response.data.notify, NotifyModel);
+    return ValidateResponseData(response.data.category, CategoryModel);
   }
 }
 
-const notifyItemStore = new NotifyItemStore();
-const NotifyItemContext = React.createContext(notifyItemStore);
+const categoryItemStore = new CategoryItemStore();
+const CategoryItemContext = React.createContext(categoryItemStore);
 
-export default NotifyItemContext;
+export default CategoryItemContext;

@@ -18,7 +18,7 @@ export default class FlatListWrapper extends PureComponent {
   handleKeyExtractor = (_, index) => `flatList_item_${index}`;
 
   render() {
-    const { list, renderItem, isRefreshing, onRefresh } = this.props;
+    const { list, renderItem, isRefreshing, onRefresh, extraData } = this.props;
 
     return (
       <Fragment>
@@ -29,6 +29,7 @@ export default class FlatListWrapper extends PureComponent {
           onRefresh={onRefresh}
           keyExtractor={this.handleKeyExtractor}
           onEndReachedThreshold={0.01}
+          extraData={extraData}
         />
       </Fragment>
     );

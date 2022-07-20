@@ -1,22 +1,31 @@
 import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import RNRestart from 'react-native-restart';
 import Orientation from 'react-native-orientation-locker';
 
 import NotifyItemContext from 'app/stores/item/notify';
 import { Container, Header } from 'app/components';
-import { NavigateTo } from 'app/helpers';
 
 import NotifyView from './view';
 
 
 const NotifyScreen = observer(props => {
-
   useEffect(() => { Orientation.lockToPortrait(); }, []);
 
-  const { isLoading, item, loadData } = useContext(NotifyItemContext);
+  const { item, loadData, changeState, clear } = useContext(NotifyItemContext);
 
-  if (item.id != props.notifyId ) loadData(props.notifyId)
+  if (item.id != props.notifyId) {
+    clear();
+    loadData(props.notifyId);
+  }
+
+  const { isLoading } = useContext(NotifyItemContext);
+
+  const onChangeState = async () => {
+    const updatedItem = await changeState();
+    console.log(updatedItem);
+    props.onchange(updatedItem);
+    // refreshData();
+  }
 
   return (
     <Container>
@@ -28,6 +37,7 @@ const NotifyScreen = observer(props => {
       <NotifyView
         isLoading={isLoading}
         item={item}
+        onChangeState={onChangeState}
       />
     </Container>
   );

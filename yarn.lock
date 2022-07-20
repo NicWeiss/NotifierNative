@@ -5822,10 +5822,10 @@ react-native-navigation-hooks@^6.2.0:
   dependencies:
     hoist-non-react-statics "3.3.2"
 
-react-native-navigation@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.npmjs.org/react-native-navigation/-/react-native-navigation-7.3.0.tgz"
-  integrity sha512-dfC2r/9u7L6rDDV/KTFj0io+4IJEC4Ec/4TPLqhR1DUGx0b3R7yFbnNFWTUs3azRwFua9kYFVsrzCP9aFoqBng==
+react-native-navigation@7.28.1:
+  version "7.28.1"
+  resolved "https://registry.yarnpkg.com/react-native-navigation/-/react-native-navigation-7.28.1.tgz#02700cec0851ea8d812b436494db80bf73dadd03"
+  integrity sha512-wSV+Zk/um0CwqTvXMizU9qfUNhyuCsqSCNnFcGrC2gsLZYAsq1em8HQIqwfdijf0wLl22g6URD/piG/SjQXBkA==
   dependencies:
     hoist-non-react-statics "3.x.x"
     lodash "4.17.x"
@@ -5911,7 +5911,7 @@ react-refresh@^0.4.0:
 
 react-test-renderer@16.13.1:
   version "16.13.1"
-  resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.13.1.tgz"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.13.1.tgz#de25ea358d9012606de51e012d9742e7f0deabc1"
   integrity sha512-Sn2VRyOK2YJJldOqoh8Tn/lWQ+ZiKhyZTPtaO0Q6yNj+QDbmRkVFap6pZPy3YQk8DScRDfyqm/KxKYP9gCMRiQ==
   dependencies:
     object-assign "^4.1.1"

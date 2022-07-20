@@ -3,24 +3,22 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Status from 'app/components/notifyItem/status';
-import DateTimeFromTimestamp from 'app/components/dateTimeFromTimestamp';
 
 import Colors from 'app/constants/Colors';
 import Periodic from 'app/constants/Periodic';
 import { NavigateTo } from 'app/helpers';
 
 
-const NotifyListItem = ({ item, index }) => {
+export const NotifyListItem = ({ item, index, onChange }) => {
 
-  const handleSelectItem = () => NavigateTo('Notify', { notifyId: item.id });
-
-  let color = Colors.red;
-
-  const status = item.status;
-
-  if (status === "1") {
-    color = Colors.green;
+  const handleChange = (updatedItem) => {
+    onChange(index, updatedItem)
   }
+
+  const handleSelectItem = () => NavigateTo('Notify', {
+    notifyId: item.id,
+    onchange: handleChange
+  });
 
   return (
     <TouchableOpacity
@@ -41,7 +39,6 @@ const NotifyListItem = ({ item, index }) => {
             <Text style={styles.itemName}>
               {item.name}
             </Text>
-
           </View>
 
           <View style={[styles.itemInfoRow, { marginBottom: 4 }]}>
@@ -63,8 +60,8 @@ const NotifyListItem = ({ item, index }) => {
 
           <View style={[styles.itemInfoRow, { marginBottom: 0 }]}>
             <Icon name='clock' style={styles.icon} />
-            <DateTimeFromTimestamp timestamp={item.date} type='date' />
-            <DateTimeFromTimestamp timestamp={item.time} type='time' />
+            <Text>{item.date}  </Text>
+            <Text>{item.time}</Text>
           </View>
 
         </View>

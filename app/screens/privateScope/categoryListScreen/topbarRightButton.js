@@ -10,7 +10,7 @@ const OrderListTopbarRightButton = observer(props => {
 
   const handleOnCreate = () => {
     // NavigateTo('');
-    console.log();
+    // console.log();
   };
 
   return (

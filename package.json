@@ -30,7 +30,7 @@
     "react-native-dialog": "^6.1.2",
     "react-native-fix-image": "^2.0.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.3",
-    "react-native-navigation": "^7.3.0",
+    "react-native-navigation": "7.28.1",
     "react-native-navigation-hooks": "^6.2.0",
     "react-native-options-menu": "^2.0.2",
     "react-native-orientation-locker": "^1.2.0",

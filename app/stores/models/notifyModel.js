@@ -10,4 +10,5 @@ export default {
   time: null,
   time_zone_offset: null,
   user_id: null,
+  category_id: 0,
 };

@@ -2,6 +2,8 @@ export default {
   get_periodic: {
     once: 'Разовое',
     day_of_week: 'День недели',
+    every_month: 'Ежемесячно',
+    every_year: 'Ежегодно',
     everyday: 'Каждый день',
     workday: 'По будням',
     weekend: 'По выходным',

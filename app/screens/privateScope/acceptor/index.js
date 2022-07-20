@@ -14,10 +14,7 @@ const AcceptorScreen = observer(props => {
 
   const { isLoading, item, loadData } = useContext(AcceptorItemContext);
 
-
-
   if (item.id != props.acceptorId) {
-    console.log(props.acceptorId);
     loadData(props.acceptorId)
   }
 
