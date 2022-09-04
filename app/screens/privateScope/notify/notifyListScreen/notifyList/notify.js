@@ -24,7 +24,6 @@ const NotifyList = observer(({ onRefresh }) => {
     onRefresh();
     setExtraData(new Date())
   }
-  console.log('render list');
 
   return (
     <ScreenWrapper

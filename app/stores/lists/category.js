@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseListItem from './baseListItem';
+import BaseList from './baseList';
 import CategoryModel from '../models/categoryModel';
 
-class CategoryStore extends BaseListItem {
+class CategoryStore extends BaseList {
 
   constructor(props) {
     super(props);

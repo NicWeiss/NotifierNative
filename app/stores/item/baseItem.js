@@ -53,7 +53,9 @@ class BaseItemStore {
   };
 
   @action createItem = async (item) => {
-    this.query({ method: 'POST', data: item });
+    await this.query({ method: 'POST', data: item });
+
+    return this.item;
   };
 
   query = async (params) => {

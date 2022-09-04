@@ -15,7 +15,7 @@ import AddButton from './addButton';
 
 
 const CategoryList = observer(() => {
-  const { getlist, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(CategoryStoreContext);
+  const { list, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(CategoryStoreContext);
   const { changeVisibility, deleteItem, updateItem, createItem } = useContext(CategoryItemContext);
 
   let [isShowModal, setIsShowModal] = useState(false)
@@ -24,12 +24,10 @@ const CategoryList = observer(() => {
   let [modalOpacity] = useState(new Animated.Value(0))
 
   const emptyDataMessage = 'Список категорий пуст';
-  let list = getlist()
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)
     updateInList(index, newItem)
-    list = getlist()
   }
 
   const onDelete = (index, item) => {
@@ -53,7 +51,6 @@ const CategoryList = observer(() => {
   const deleteCategory = async (index, item, withNotify) => {
     await deleteItem(item, withNotify)
     deleteFromList(index)
-    list = getlist()
   }
 
   const onShowEditModal = (index, item) => {
@@ -77,7 +74,6 @@ const CategoryList = observer(() => {
       pushToList(newItem)
     }
 
-    list = getlist()
     await AwaitableAnimation(modalOpacity, 0, 150)
     setIsShowModal(false)
   }

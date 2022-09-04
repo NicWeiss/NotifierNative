@@ -3,7 +3,7 @@ import { action, observable } from 'mobx';
 import { Api, ProcessErrors, SerializeQueryParams, ValidateResponseData } from 'app/helpers';
 
 
-class BaseListItem {
+class BaseList {
 
   @observable isLoading = true;
   @observable isRefreshing = false;
@@ -26,10 +26,9 @@ class BaseListItem {
     this.requestData();
   }
 
-  @action getlist = () => this.list;
-
   @action pushToList = (item) => {
-    this.list.push(item)
+    console.log(item);
+    this.list = [...this.list, item]
   }
 
   @action updateInList = (index, item) => {
@@ -71,13 +70,13 @@ class BaseListItem {
       this.list = ValidateResponseData(response.data[this.entity], this.model);
     }
 
-    // if (!this.list) {
-    //   this.list = [];
-    // }
+    if (!this.list) {
+      this.list = [];
+    }
 
     this.isRefreshing = false;
     this.isLoading = false;
   }
 }
 
-export default BaseListItem;
+export default BaseList;

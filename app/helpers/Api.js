@@ -46,15 +46,15 @@ export default class Api {
       headers['Content-Type'] = 'application/json';
     }
 
-    console.log(headers);
-    console.log(method);
-    console.log(baseURL);
-    console.log(url);
+    // console.log('Headers: ', headers);
+    // console.log('Method: ', method);
+    // console.log('API url: ', baseURL);
+    // console.log('Query url: ', url);
 
     try {
-      console.log('----- Data ----');
       data = this.destructure(data)
-      console.log(JSON.stringify(data, null, 4));
+      // console.log('Data:');
+      // console.log(JSON.stringify(data, null, 4));
     } catch (e) {
       console.log(e);
     }

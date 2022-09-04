@@ -1,10 +1,10 @@
 import React from 'react';
 import { action } from 'mobx';
 
-import BaseListItem from './baseListItem';
+import BaseList from './baseList';
 import NotifyModel from '../models/notifyModel';
 
-class NotifyStore extends BaseListItem {
+class NotifyStore extends BaseList {
 
   constructor(props) {
     super(props);

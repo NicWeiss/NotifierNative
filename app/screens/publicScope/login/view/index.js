@@ -40,10 +40,7 @@ export default class LoginView extends PureComponent {
 
 
   checkAuth = async (context) => {
-    console.log('Checking!');
-
     const session = await AsyncStorage.getItem('session');
-    console.log(session);
 
     if (typeof session != 'string') {
       console.log('Session not found! Show inputs!');
@@ -93,9 +90,6 @@ export default class LoginView extends PureComponent {
 
     try {
       let response = await this.props.logIn(login, password);
-      console.log(response.data.session);
-      console.log(response.data.user);
-
       await AsyncStorage.setItem('session', response.data.session);
 
       this.onChangeLogin('');
@@ -106,7 +100,6 @@ export default class LoginView extends PureComponent {
       const errorResponse = error.response?.data?.errors;
 
       if (errorResponse) {
-        // const errorMessage = errorResponse.map(item => `${item.title}\n${item.detail}`).join();
         console.log(errorResponse);
         this.changeErrorMessage(errorResponse.error);
       } else {

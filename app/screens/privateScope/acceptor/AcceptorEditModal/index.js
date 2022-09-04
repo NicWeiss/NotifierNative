@@ -29,7 +29,7 @@ const AcceptorEditModal = ({
 
   const handleChange = (key, value) => {
     let updatedValue = { [key]: value };
-    console.log(updatedValue);
+
     setItem(editableItem => ({
       ...editableItem,
       ...updatedValue

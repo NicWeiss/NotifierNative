@@ -15,7 +15,7 @@ import AddButton from './addButton';
 
 
 const AcceptorList = observer(() => {
-  const { getlist, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(AcceptorStoreContext);
+  const { list, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(AcceptorStoreContext);
   const { changeVisibility, deleteItem, updateItem, createItem } = useContext(AcceptorItemContext);
 
   let [isShowModal, setIsShowModal] = useState(false)
@@ -24,12 +24,10 @@ const AcceptorList = observer(() => {
   let [modalOpacity] = useState(new Animated.Value(0))
 
   const emptyDataMessage = 'Список получателей пуст';
-  let list = getlist()
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)
     updateInList(index, newItem)
-    list = getlist()
   }
 
   const onDelete = (index, item) => {
@@ -49,7 +47,6 @@ const AcceptorList = observer(() => {
   const deleteAcceptor = async (index, item) => {
     await deleteItem(item)
     deleteFromList(index)
-    list = getlist()
   }
 
   const onShowEditModal = (index, item) => {
@@ -73,7 +70,6 @@ const AcceptorList = observer(() => {
       pushToList(newItem)
     }
 
-    list = getlist()
     await AwaitableAnimation(modalOpacity, 0, 150)
     setIsShowModal(false)
   }

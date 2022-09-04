@@ -1,9 +1,9 @@
 import React from 'react';
 
-import BaseListItem from './baseListItem';
+import BaseList from './baseList';
 import AcceptorModel from '../models/acceptorModel';
 
-class AcceptorsStore extends BaseListItem {
+class AcceptorsStore extends BaseList {
 
   constructor(props) {
     super(props);

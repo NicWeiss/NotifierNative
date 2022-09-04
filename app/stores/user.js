@@ -61,8 +61,6 @@ class UserStore {
 
   @action loadData = async () => {
     this.isLoading = true;
-    console.log('TRY LOAD');
-    await this.requestData();
 
     this.isLoading = false;
   }
@@ -83,8 +81,6 @@ class UserStore {
     } catch (error) {
       this.logOut();
     }
-
-    console.log(response);
 
     if (response) {
       const responseUser = response.data;

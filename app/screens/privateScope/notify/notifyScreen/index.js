@@ -22,7 +22,7 @@ const NotifyScreen = observer(props => {
 
   const onChangeState = async () => {
     const updatedItem = await changeState();
-    console.log(updatedItem);
+
     props.onchange(updatedItem);
   }
 
