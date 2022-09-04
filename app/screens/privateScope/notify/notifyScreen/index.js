@@ -24,7 +24,6 @@ const NotifyScreen = observer(props => {
     const updatedItem = await changeState();
     console.log(updatedItem);
     props.onchange(updatedItem);
-    // refreshData();
   }
 
   return (

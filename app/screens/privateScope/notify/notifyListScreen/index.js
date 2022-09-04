@@ -13,7 +13,7 @@ import NotifyList from './notifyList/notify';
 
 
 const NotifyListScreen = observer(() => {
-  const { loadData: loadCategogies, refreshData } = useContext(CategoryStoreContext);
+  const { loadData: loadCategogies, refreshData: refreshCetegories } = useContext(CategoryStoreContext);
   const { loadData: loadNotify } = useContext(NotifyStoreContext);
   const sideBarRef = React.useRef();
 
@@ -28,10 +28,6 @@ const NotifyListScreen = observer(() => {
     loadNotify(id);
   };
 
-  const handleRefresh = () => {
-    refreshData();
-  }
-
   return (
     <Container>
       <SideBarMenu ref={sideBarRef} currentScreen="NotifyListScreen" />
@@ -45,7 +41,7 @@ const NotifyListScreen = observer(() => {
         }]}
       />
       <CategoryTabs onSelect={loadByCategoryId} />
-      <NotifyList onRefresh={handleRefresh} />
+      <NotifyList onRefresh={refreshCetegories} />
     </Container>
   );
 });

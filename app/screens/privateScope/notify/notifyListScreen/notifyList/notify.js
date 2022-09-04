@@ -10,19 +10,18 @@ import NotifyListItem from './notifyListItem';
 
 const NotifyList = observer(({ onRefresh }) => {
   let [extraData, setExtraData] = useState(new Date())
-  let { getlist, isLoading, isRefreshing, refreshData, updateById } = useContext(NotifyStoreContext);
+  let { list, isLoading, isRefreshing, refreshData, updateById } = useContext(NotifyStoreContext);
   const emptyDataMessage = 'Список уведомлений пуст';
 
-  let list = getlist()
 
   const onChange = (index, item) => {
     updateById(index, item)
-    list = getlist()
     setExtraData(new Date())
   }
 
   const handleRefresh = () => {
     refreshData();
+    onRefresh();
   }
 
   return (

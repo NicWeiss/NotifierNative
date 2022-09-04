@@ -71,9 +71,9 @@ class BaseListItem {
       this.list = ValidateResponseData(response.data[this.entity], this.model);
     }
 
-    if (!this.list) {
-      this.list = [];
-    }
+    // if (!this.list) {
+    //   this.list = [];
+    // }
 
     this.isRefreshing = false;
     this.isLoading = false;

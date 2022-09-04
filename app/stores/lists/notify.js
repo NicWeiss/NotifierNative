@@ -19,10 +19,7 @@ class NotifyStore extends BaseListItem {
     this.isLoading = true;
     this.lastId = id
 
-    let responce = await this.requestData(id);
-    this.list = responce;
-
-    this.isLoading = false;
+    this.requestData(id);
   }
 }
 
