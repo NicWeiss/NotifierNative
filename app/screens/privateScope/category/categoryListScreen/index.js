@@ -31,7 +31,6 @@ const CategoryListScreen = observer(() => {
             backRef: sideBarRef
           }
         }]}
-      // rightButtons={[NotifyListTopbarRightButton]}
       />
       <CategoryList />
     </Container>

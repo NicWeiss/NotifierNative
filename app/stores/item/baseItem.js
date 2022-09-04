@@ -47,7 +47,9 @@ class BaseItemStore {
       this.item = item;
     }
 
-    this.query({ method: 'PUT', id: this.item.id, data: this.item });
+    await this.query({ method: 'PUT', id: this.item.id, data: this.item });
+
+    return this.item;
   };
 
   @action createItem = async (item) => {

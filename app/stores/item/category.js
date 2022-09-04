@@ -27,8 +27,7 @@ class CategoryItemStore extends BaseItemStore {
     }
 
     this.item.is_hidden = this.item.is_hidden == '1' ? '0' : '1';
-    let response = await this.query({ method: 'PUT', id: this.item.id, data: this.item });
-    this.item = response;
+    await this.query({ method: 'PUT', id: this.item.id, data: this.item });
 
     return this.item;
   }
