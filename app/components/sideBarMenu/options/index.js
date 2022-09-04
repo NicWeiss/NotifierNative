@@ -22,6 +22,13 @@ const Options = ({ context, currentScreen }) => {
     }
   }
 
+  const toAcceptorList = async () => {
+    context.hideFromOption();
+    if (currentScreen != 'AcceptorListScreen') {
+      SetRootNavigation('AcceptorList');
+    }
+  }
+
   const toSettings = () => {
     context.hideFromOption();
     if (currentScreen != 'ProfileScreen') {
@@ -50,6 +57,7 @@ const Options = ({ context, currentScreen }) => {
         iconPack='Material'
         iconName='recent-actors'
         text='Acceptors'
+        onPress={toAcceptorList}
       />
 
       <Option

@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Status from 'app/components/notifyItem/status';
-
 import Colors from 'app/constants/Colors';
 import Periodic from 'app/constants/Periodic';
 import { NavigateTo } from 'app/helpers';
@@ -68,8 +66,11 @@ export const NotifyListItem = ({ item, index, onChange }) => {
 
         <View style={styles.itemRightPart}>
           <View style={styles.itemInfoRow}>
-
-            <Status status={item.status} />
+            {
+              item.status == '1' ?
+                <Icon style={styles.bell} name={'bell'} /> :
+                <Icon style={styles.bellOff} name={'bell-off'} />
+            }
           </View>
         </View>
       </View>
@@ -112,13 +113,27 @@ const styles = StyleSheet.create({
   },
   itemPeriodic: {
     fontSize: 14,
-    color: Colors.gray,
+    color: Colors.black
+  },
+  itemWeekDay: {
+    fontSize: 14,
+    color: Colors.black
   },
   icon: {
     marginRight: 8,
     color: Colors.orange,
     fontSize: 16
   },
+  bell: {
+    marginTop: 8,
+    color: Colors.green,
+    fontSize: 20
+  },
+  bellOff: {
+    marginTop: 8,
+    color: Colors.red,
+    fontSize: 20
+  }
 });
 
 

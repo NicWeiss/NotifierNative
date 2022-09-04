@@ -1,8 +1,6 @@
 import React, { Fragment, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { ActivityIndicator, FlatList, View } from 'react-native';
-
-import Colors from 'app/constants/Colors';
+import { FlatList } from 'react-native';
 
 
 export default class FlatListWrapper extends PureComponent {
@@ -13,7 +11,6 @@ export default class FlatListWrapper extends PureComponent {
     isRefreshing: PropTypes.bool.isRequired,
     onRefresh: PropTypes.func.isRequired
   }
-
 
   handleKeyExtractor = (_, index) => `flatList_item_${index}`;
 

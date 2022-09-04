@@ -34,7 +34,6 @@ export default class SideBarMenu extends PureComponent {
   }
 
   backAction() {
-    console.log(this);
     if (this.state.isShow) {
       this.hideSideBar();
     } else {
@@ -114,10 +113,6 @@ export default class SideBarMenu extends PureComponent {
     if (this.state.isClosing) {
       return;
     }
-
-    console.log(this.state.isLock);
-    console.log(this.state.xDiff);
-    console.log(this.state.xOffset);
 
     if (!this.state.isLock && this.state.xDiff != 0) {
       if (this.state.xDiff < 30) {

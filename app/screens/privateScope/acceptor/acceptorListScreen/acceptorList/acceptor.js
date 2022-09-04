@@ -6,24 +6,24 @@ import { Container, ScreenWrapper } from 'app/components';
 import { FlalistWrapper } from 'app/components/lists';
 import { AwaitableAnimation } from 'app/helpers';
 
-import CategoryStoreContext from 'app/stores/lists/category';
-import CategoryItemContext from 'app/stores/item/category';
+import AcceptorStoreContext from 'app/stores/lists/acceptor';
+import AcceptorItemContext from 'app/stores/item/acceptor';
 
-import CategoryListItem from './categoryListItem';
-import CategoryEditModal from '../../CategoryEditModal';
+import AcceptorListItem from './acceptorListItem';
+import AcceptorEditModal from '../../AcceptorEditModal';
 import AddButton from './addButton';
 
 
-const CategoryList = observer(() => {
-  const { getlist, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(CategoryStoreContext);
-  const { changeVisibility, deleteItem, updateItem, createItem } = useContext(CategoryItemContext);
+const AcceptorList = observer(() => {
+  const { getlist, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(AcceptorStoreContext);
+  const { changeVisibility, deleteItem, updateItem, createItem } = useContext(AcceptorItemContext);
 
   let [isShowModal, setIsShowModal] = useState(false)
   let [itemForModal, setItemForModal] = useState({})
   let [itemForModalIndex, setItemForModalIndex] = useState()
   let [modalOpacity] = useState(new Animated.Value(0))
 
-  const emptyDataMessage = 'Список категорий пуст';
+  const emptyDataMessage = 'Список получателей пуст';
   let list = getlist()
 
   const onChangeVisibility = async (index, item) => {
@@ -33,25 +33,21 @@ const CategoryList = observer(() => {
   }
 
   const onDelete = (index, item) => {
-    Alert.alert("", `Catedory ${item.name} will be deleted`, [
+    Alert.alert("", `Acceptor ${item.name} will be deleted`, [
       {
         text: "Cancel",
         onPress: () => { },
         style: "cancel"
       },
       {
-        text: "With",
-        onPress: () => deleteCategory(index, item, true)
-      },
-      {
-        text: "Without",
-        onPress: () => deleteCategory(index, item, false)
+        text: "Delete",
+        onPress: () => deleteAcceptor(index, item)
       }
     ]);
   }
 
-  const deleteCategory = async (index, item, withNotify) => {
-    await deleteItem(item, withNotify)
+  const deleteAcceptor = async (index, item) => {
+    await deleteItem(item)
     deleteFromList(index)
     list = getlist()
   }
@@ -98,7 +94,7 @@ const CategoryList = observer(() => {
       {
         isShowModal ?
           <Animated.View style={[styles.modalWrapper, { opacity: modalOpacity }]}>
-            <CategoryEditModal
+            <AcceptorEditModal
               item={itemForModal}
               onHide={onHideEditModal}
               onSave={onSaveInModal} />
@@ -108,7 +104,7 @@ const CategoryList = observer(() => {
         <FlalistWrapper
           list={list}
           renderItem={({ item, index }) => (
-            <CategoryListItem
+            <AcceptorListItem
               item={item}
               index={index}
               onChangeVisibility={onChangeVisibility}
@@ -139,4 +135,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default CategoryList;
+export default AcceptorList;

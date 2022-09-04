@@ -6,7 +6,7 @@ import Colors from 'app/constants/Colors';
 import { NavigateTo } from 'app/helpers';
 
 
-export const CategoryListItem = (
+export const AcceptorListItem = (
   { item, index, onChange, onChangeVisibility, onDelete, onEdit }
 ) => {
 
@@ -46,9 +46,9 @@ export const CategoryListItem = (
       <View style={styles.buttonsPart}>
         <TouchableOpacity onPress={handleChangeVisibility} style={styles.inlineButton}>
           {
-            item && item.is_hidden == 1 ?
-              <Icon name='eye-off' style={[styles.hideIcon, styles.icon]} /> :
-              <Icon name='eye' style={[styles.showIcon, styles.icon]} />
+            item && item.status == "0" ?
+              <Icon name='bell-off' style={[styles.hideIcon, styles.icon]} /> :
+              <Icon name='bell' style={[styles.showIcon, styles.icon]} />
           }
         </TouchableOpacity>
 
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default CategoryListItem;
+export default AcceptorListItem;

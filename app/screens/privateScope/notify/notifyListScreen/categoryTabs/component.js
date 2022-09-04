@@ -1,8 +1,7 @@
 import React, { Fragment, useContext } from 'react';
 import { observer } from 'mobx-react-lite';
-// import GestureRecognizer from 'react-native-swipe-gestures';
-// import { AwaitableAnimation } from 'app/helpers';
-import { Animated, Text, FlatList, ScrollView, View } from 'react-native';
+
+import { FlatList, View } from 'react-native';
 import CategoryStoreContext from 'app/stores/lists/category';
 
 import styles from './styles';
@@ -11,10 +10,10 @@ import SeparatorItem from './separatorItem';
 
 const CategoryTabs = observer((props) => {
   const { onSelect } = props
-  let { list, isLoading, isRefreshing, refreshData } = useContext(CategoryStoreContext);
+  let { list } = useContext(CategoryStoreContext);
   const newList = [
     { id: "0", name: "Без категории" },
-    ...list.filter((item => item.is_hidden != 1))
+    ...list.filter((item => item && item.is_hidden != 1))
   ]
 
   const callback = (id) => {
@@ -39,27 +38,5 @@ const CategoryTabs = observer((props) => {
   );
 });
 
-// import React, { useContext, useEffect } from 'react';
-
-// import NotifyStoreContext from 'app/stores/lists/notify';
-
-// import NotifyListSampleTab from './tabSample';
-
-
-// const NotifyListNotifyTab = observer( () => {
-
-//   let { list, isLoading, isRefreshing,  refreshData } = useContext(NotifyStoreContext);
-
-//   return (
-//     <NotifyListSampleTab
-//       emptyDataMessage='Список уведомлений пуст'
-//       isLoading={isLoading}
-//       list={list}
-//       isRefreshing={isRefreshing}
-//       refreshData={refreshData}
-//       type='notify'
-//     />
-//   );
-// });
 
 export default CategoryTabs;

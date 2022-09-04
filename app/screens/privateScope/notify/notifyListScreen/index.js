@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import Orientation from 'react-native-orientation-locker';
 
@@ -43,7 +43,6 @@ const NotifyListScreen = observer(() => {
             backRef: sideBarRef
           }
         }]}
-      // rightButtons={[NotifyListTopbarRightButton]}
       />
       <CategoryTabs onSelect={loadByCategoryId} />
       <NotifyList onRefresh={handleRefresh} />

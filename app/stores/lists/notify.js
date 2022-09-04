@@ -1,17 +1,21 @@
 import React from 'react';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 
-import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
-
+import BaseListItem from './baseListItem';
 import NotifyModel from '../models/notifyModel';
 
-class NotifyStore {
+class NotifyStore extends BaseListItem {
 
-  @observable isLoading = true
-  @observable isRefreshing = false
-  @observable list = []
+  constructor(props) {
+    super(props);
+
+    this.model = NotifyModel;
+    this.entity = 'notify';
+    this.entityInUrl = 'notifies'
+  }
 
   @action loadData = async (id = 0) => {
+    this.queryParamas.category_id = id;
     this.isLoading = true;
     this.lastId = id
 
@@ -19,48 +23,6 @@ class NotifyStore {
     this.list = responce;
 
     this.isLoading = false;
-  }
-
-  @action refreshData = async () => {
-    this.isEndOfTheListReached = false;
-    this.list = [];
-    this.isRefreshing = true;
-
-    let responce = await this.requestData(this.lastId);
-    this.list = responce;
-
-    this.isRefreshing = false;
-  }
-
-  @action updateListFromDetailView = async (item) => {
-    let targetItemId = null;
-
-    this.list.forEach((element, id) => {
-      if (item.id == element.id) {
-        targetItemId = id;
-      }
-    });
-    this.list[targetItemId] = item;
-  }
-
-  @action getlist = () => this.list;
-
-  @action updateById = (index, item) => {
-    this.list[index] = item
-  }
-
-  requestData = async (id = 0) => {
-    let response = null;
-
-    try {
-      response = await Api.doRequest('GET', `/notifies?category_id=${id}&page=1&per_page=25`);
-    } catch (error) {
-      ProcessErrors(error);
-
-      return;
-    }
-
-    return ValidateResponseData(response.data.notify, NotifyModel);
   }
 }
 

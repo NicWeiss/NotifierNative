@@ -1,32 +1,24 @@
 import React from 'react';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 
-import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
+import BaseItemStore from './baseItem';
+import { Api } from 'app/helpers';
 
 import CategoryModel from '../models/categoryModel';
 
 
-class CategoryItemStore {
+class CategoryItemStore extends BaseItemStore {
 
-  @observable isLoading = true
-  @observable isRefreshing = false;
-  @observable item = []
+  constructor(props) {
+    super(props);
 
-  @action getItem = () => this.item;
+    this.model = CategoryModel;
+    this.entity = 'category';
+    this.entityInUrl = 'categories'
 
-  @action clear = () => {
-    this.item = [];
-    this.isRefreshing = false;
-    this.isLoading = true;
-  }
-
-  @action loadData = async (id) => {
-    this.isLoading = true;
-
-    let response = await this.requestData(id);
-    this.item = response;
-
-    this.isLoading = false;
+    // Override deleteItem function
+    this.superDeleteItem = this.deleteItem;
+    this.deleteItem = this.customDeleteItem;
   }
 
   @action changeVisibility = async (item) => {
@@ -35,80 +27,29 @@ class CategoryItemStore {
     }
 
     this.item.is_hidden = this.item.is_hidden == '1' ? '0' : '1';
-    let response = await this.updateData();
+    let response = await this.query({ method: 'PUT', id: this.item.id, data: this.item });
     this.item = response;
 
     return this.item;
   }
 
-  @action refreshData = async () => {
-    this.isEndOfTheListReached = false;
-    this.item = [];
-    this.isRefreshing = true;
-
-    let responce = await this.requestData();
-    this.item = responce;
-
-    this.isLoading = false;
-  }
-
-
-  @action deleteItem = async (item, withNotify) => {
+  @action customDeleteItem = async (item, withNotify) => {
     if (item) {
       this.item = item;
     }
 
-    this.deleteData(withNotify)
+    if (withNotify) {
+      await Api.doRequest('DELETE', '/notifies/delete_by_category_id',
+        { 'data': { 'category_id': this.item.id } }
+      );
+    } else {
+      await Api.doRequest('DELETE', '/notifies/reset_from_category_id',
+        { 'data': { 'category_id': this.item.id } }
+      );
+    }
+
+    this.superDeleteItem(this.item);
   };
-
-  requestData = async (id) => {
-    let response = null;
-
-    try {
-      response = await Api.doRequest('GET', '/categories/' + id);
-    } catch (error) {
-      ProcessErrors(error);
-
-      return;
-    }
-
-    return ValidateResponseData(response.data.category, CategoryModel);
-  }
-
-  updateData = async () => {
-    let response = null;
-
-    try {
-      response = await Api.doRequest('PUT',
-        '/categories/' + this.item.id,
-        {
-          data: { category: this.item }
-        });
-    } catch (error) {
-      ProcessErrors(error);
-      return;
-    }
-
-    return ValidateResponseData(response.data.category, CategoryModel);
-  }
-
-  deleteData = async (withNotify = false) => {
-    try {
-      if (withNotify) {
-        await Api.doRequest('DELETE', '/notifies/delete_by_category_id',
-          { 'data': { 'category_id': this.item.id } }
-        );
-      } else {
-        await Api.doRequest('DELETE', '/notifies/reset_from_category_id',
-          { 'data': { 'category_id': this.item.id } }
-        );
-      }
-
-      await Api.doRequest('DELETE', '/categories/' + this.item.id);
-    } catch (error) {
-      ProcessErrors(error);
-    }
-  }
 }
 
 const categoryItemStore = new CategoryItemStore();

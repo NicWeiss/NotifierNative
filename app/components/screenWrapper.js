@@ -17,7 +17,7 @@ const panelHeight = 52;
 const ScreenWrapper = ({
   isLoading = false,
   isRefreshing,
-  refreshData,
+  onRefresh,
   isDataEmpty,
   isTab = false,
   isWithTopPanel = false,
@@ -54,7 +54,7 @@ const ScreenWrapper = ({
             <RefreshControl
               style={styles.refreshControl}
               refreshing={isRefreshing}
-              onRefresh={refreshData}
+              onRefresh={onRefresh}
             />
           }
         >

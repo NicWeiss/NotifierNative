@@ -1,51 +1,30 @@
 import React from 'react';
-import { action, observable } from 'mobx';
+import { action } from 'mobx';
 
-import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
-
-import AcceptorListItemModel from '../models/acceptorsListItem';
-
-
-class AcceptorItemStore {
-
-  @observable isLoading = true
-  @observable isRefreshing = false;
-  @observable item = []
+import BaseItemStore from './baseItem';
+import AcceptorModel from '../models/acceptorModel';
 
 
-  @action loadData = async (id) => {
-    this.isLoading = true;
+class AcceptorItemStore extends BaseItemStore {
 
-    let responce = await this.requestData(id);
-    if (responce) {
-      this.item = responce;
-      this.isLoading = false;
-    }
+  constructor(props) {
+    super(props);
+
+    this.model = AcceptorModel;
+    this.entity = 'acceptor';
+    this.entityInUrl = 'acceptors'
   }
 
-  @action refreshData = async () => {
-    this.isEndOfTheListReached = false;
-    this.item = [];
-    this.isRefreshing = true;
-
-    let responce = await this.requestData();
-    this.item = responce;
-
-    this.isRefreshing = false;
-  }
-
-  requestData = async (id) => {
-    let response = null;
-
-    try {
-      response = await Api.doRequest('GET', '/acceptors/' + id);
-    } catch (error) {
-      ProcessErrors(error);
-      console.log('ERROR -------->>>>>>', error);
-      return;
+  @action changeVisibility = async (item) => {
+    if (item) {
+      this.item = item;
     }
-    console.log('DATA ---------------------->', response.data.acceptor);
-    return ValidateResponseData(response.data.acceptor, AcceptorListItemModel);
+
+    this.item.status = this.item.status == '1' ? '0' : '1';
+    let response = await this.query({ method: 'PUT', id: this.item.id, data: this.item });
+    this.item = response;
+
+    return this.item;
   }
 }
 
