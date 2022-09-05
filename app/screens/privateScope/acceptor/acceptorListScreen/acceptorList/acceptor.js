@@ -10,6 +10,7 @@ import AcceptorStoreContext from 'app/stores/lists/acceptor';
 import AcceptorItemContext from 'app/stores/item/acceptor';
 
 import AcceptorListItem from './acceptorListItem';
+import SystemStoreContext from 'app/stores/lists/system';
 import AcceptorEditModal from '../../AcceptorEditModal';
 import AddButton from './addButton';
 
@@ -17,17 +18,17 @@ import AddButton from './addButton';
 const AcceptorList = observer(() => {
   const { list, isLoading, isRefreshing, refreshData, updateInList, deleteFromList, pushToList } = useContext(AcceptorStoreContext);
   const { changeVisibility, deleteItem, updateItem, createItem } = useContext(AcceptorItemContext);
+  const { list: listOfSystems } = useContext(SystemStoreContext);
 
   let [isShowModal, setIsShowModal] = useState(false)
   let [itemForModal, setItemForModal] = useState({})
-  let [itemForModalIndex, setItemForModalIndex] = useState()
   let [modalOpacity] = useState(new Animated.Value(0))
 
   const emptyDataMessage = 'Список получателей пуст';
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)
-    updateInList(index, newItem)
+    updateInList(newItem)
   }
 
   const onDelete = (index, item) => {
@@ -50,7 +51,6 @@ const AcceptorList = observer(() => {
   }
 
   const onShowEditModal = (index, item) => {
-    setItemForModalIndex(index)
     setItemForModal(item)
     setIsShowModal(true)
     AwaitableAnimation(modalOpacity, 1, 150)
@@ -62,9 +62,9 @@ const AcceptorList = observer(() => {
   }
 
   const onSaveInModal = async (item) => {
-    if (itemForModalIndex) {
+    if (item.id) {
       let updatedItem = await updateItem(item)
-      updateInList(itemForModalIndex, updatedItem)
+      updateInList(updatedItem)
     } else {
       let newItem = await createItem(item)
       pushToList(newItem)
@@ -92,6 +92,7 @@ const AcceptorList = observer(() => {
           <Animated.View style={[styles.modalWrapper, { opacity: modalOpacity }]}>
             <AcceptorEditModal
               item={itemForModal}
+              listOfSystems={listOfSystems}
               onHide={onHideEditModal}
               onSave={onSaveInModal} />
           </Animated.View> : null

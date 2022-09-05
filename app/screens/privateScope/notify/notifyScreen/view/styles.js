@@ -58,6 +58,7 @@ export default StyleSheet.create({
   },
 
   button: {
+    marginVertical: 10,
     padding: 10,
     width: '70%',
     justifyContent: 'center',
@@ -69,6 +70,11 @@ export default StyleSheet.create({
   disableButton: {
     color: Colors.white,
     backgroundColor: Colors.red
+  },
+
+  editButton: {
+    color: Colors.white,
+    backgroundColor: Colors.orange
   },
 
   activateButton: {

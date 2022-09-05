@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Text, TouchableOpacity, View, TextInput } from 'react-native';
 
+import { Input } from 'app/components/form';
 import Colors from 'app/constants/Colors';
 import styles from './styles';
 
@@ -39,12 +40,11 @@ const CategoryEditModal = ({
   return (
     <View style={styles.overlay}>
       <View style={styles.category}>
-        <TextInput
-          style={styles.input}
+        <Input
+          label="Category name"
           value={editableItem.name}
           onChangeText={(text) => handleChange('name', text)}
-          // onChange={(e) => handleChange('name', e)}
-          placeholder="Category name"
+          placeholder=""
         />
 
         <View style={styles.buttonPlace}>

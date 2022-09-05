@@ -31,8 +31,16 @@ class BaseList {
     this.list = [...this.list, item]
   }
 
-  @action updateInList = (index, item) => {
-    this.list[index] = item
+  @action updateInList = (item) => {
+    let index = null;
+
+    this.list.forEach(function (listItem, id) {
+      if (listItem.id == item.id) {
+        index = id;
+      }
+    });
+
+    this.list[index] = item;
   }
 
   @action deleteFromList = (index) => {

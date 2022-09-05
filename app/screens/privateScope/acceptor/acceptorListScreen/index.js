@@ -6,17 +6,20 @@ import { Container, Header } from 'app/components';
 import { SideBarMenu, SideBarMenuButton } from 'app/components/sideBarMenu'
 
 import AcceptorStoreContext from 'app/stores/lists/acceptor';
+import SystemStoreContext from 'app/stores/lists/system';
 import AcceptorList from './acceptorList/acceptor';
 
 
 const AcceptorListScreen = observer(() => {
-  const { loadData: loadCategogies } = useContext(AcceptorStoreContext);
+  const { loadData: loadAcceptors } = useContext(AcceptorStoreContext);
+  const { loadData: loadSystems } = useContext(SystemStoreContext);
   const sideBarRef = React.useRef();
 
   useEffect(() => {
     Orientation.lockToPortrait();
 
-    loadCategogies();
+    loadAcceptors();
+    loadSystems();
   }, []);
 
 

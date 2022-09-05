@@ -60,12 +60,17 @@ const NotifyView = ({
 
         <Text>Получатели: {item.acceptorsList.map(item => { return item.name }).join(", ")}</Text>
       </View>
-      <TouchableOpacity onPress={onChangeState} style={styles.buttonPlace}>
-        {item.status == 1 ?
-          <Text style={[styles.button, styles.disableButton]}>Disable</Text> :
-          <Text style={[styles.button, styles.activateButton]}>Activate</Text>
-        }
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity style={styles.buttonPlace}>
+          <Text style={[styles.button, styles.editButton]}>Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onChangeState} style={styles.buttonPlace}>
+          {item.status == 1 ?
+            <Text style={[styles.button, styles.disableButton]}>Disable</Text> :
+            <Text style={[styles.button, styles.activateButton]}>Activate</Text>
+          }
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

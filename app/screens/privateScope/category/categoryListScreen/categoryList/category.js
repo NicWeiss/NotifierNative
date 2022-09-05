@@ -20,14 +20,13 @@ const CategoryList = observer(() => {
 
   let [isShowModal, setIsShowModal] = useState(false)
   let [itemForModal, setItemForModal] = useState({})
-  let [itemForModalIndex, setItemForModalIndex] = useState()
   let [modalOpacity] = useState(new Animated.Value(0))
 
   const emptyDataMessage = 'Список категорий пуст';
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)
-    updateInList(index, newItem)
+    updateInList(newItem)
   }
 
   const onDelete = (index, item) => {
@@ -54,7 +53,6 @@ const CategoryList = observer(() => {
   }
 
   const onShowEditModal = (index, item) => {
-    setItemForModalIndex(index)
     setItemForModal(item)
     setIsShowModal(true)
     AwaitableAnimation(modalOpacity, 1, 150)
@@ -66,9 +64,9 @@ const CategoryList = observer(() => {
   }
 
   const onSaveInModal = async (item) => {
-    if (itemForModalIndex) {
+    if (item.id) {
       let updatedItem = await updateItem(item)
-      updateInList(itemForModalIndex, updatedItem)
+      updateInList(updatedItem)
     } else {
       let newItem = await createItem(item)
       pushToList(newItem)

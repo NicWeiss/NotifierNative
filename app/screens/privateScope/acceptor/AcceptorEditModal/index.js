@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { ActivityIndicator, Picker, Text, TouchableOpacity, View, TextInput } from 'react-native';
 
+import { Input, Select } from 'app/components/form';
 import Colors from 'app/constants/Colors';
 import styles from './styles';
 
 
 const AcceptorEditModal = ({
-  item, isLoading, onHide, onSave
+  item, listOfSystems, isLoading, onHide, onSave
 }) => {
 
   const [editableItem, setItem] = useState({});
+  const [selectedSystem, setSelectedSystem] = useState();
 
   useEffect(() => {
+    setSelectedSystem(item.system_id);
     setItem(item)
   }, []);
 
@@ -39,26 +42,28 @@ const AcceptorEditModal = ({
   return (
     <View style={styles.overlay}>
       <View style={styles.acceptor}>
-        <TextInput
-          style={styles.input}
+        <Input
+          label="Acceptor label"
           value={editableItem.name}
           onChangeText={(text) => handleChange('name', text)}
-          placeholder="Acceptor label"
+          placeholder=""
         />
 
-        <TextInput
-          style={styles.input}
-          value={editableItem.system_id}
-          onChangeText={(text) => handleChange('system_id', text)}
-          placeholder="Acceptor system"
+        <Select
+          label='Transport system'
+          list={listOfSystems}
+          selectedValue={selectedSystem}
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedSystem(itemValue);
+            editableItem.system_id = itemValue;
+          }}
         />
 
-
-        <TextInput
-          style={styles.input}
+        <Input
+          label="Acceptor account in selected system"
           value={editableItem.account}
           onChangeText={(text) => handleChange('account', text)}
-          placeholder="Acceptor ccount"
+          placeholder=""
         />
 
         <View style={styles.buttonPlace}>
