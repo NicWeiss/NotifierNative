@@ -61,11 +61,15 @@ const NotifyEditView = ({
 
   const handleChangeDateTime = (type, value) => {
     if (type == 'date') {
-      handleChange(type, `${value.getFullYear()}-${value.getMonth()}-${value.getDate()}`)
+      const month = value.getMonth() < 10 ? `0${value.getMonth() + 1}` : value.getMonth() + 1;
+      const date = value.getDate() < 10 ? `0${value.getDate()}` : value.getDate();
+      handleChange(type, `${value.getFullYear()}-${month}-${date}`)
     }
 
     if (type == 'time') {
-      handleChange(type, `${value.getHours()}:${value.getMinutes()}`)
+      const hours = value.getHours() < 10 ? `0${value.getHours()}` : value.getHours();
+      const minutes = value.getMinutes() < 10 ? `0${value.getMinutes()}` : value.getMinutes();
+      handleChange(type, `${hours}:${minutes}`)
     }
   }
 

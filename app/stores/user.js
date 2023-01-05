@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { action, observable } from 'mobx';
 import DeviceInfo from 'react-native-device-info'
 
-import { Api, PopToLoginScreen, ProcessErrors } from 'app/helpers';
+import { Api, PopToLoginScreen, ProcessErrors, ShowToast } from 'app/helpers';
 
 import UserModel from './models/user';
 
@@ -90,6 +90,54 @@ class UserStore {
     } else {
       ShowToast('Failed to load user data');
     }
+  }
+
+  getCode = async (email) => {
+    try {
+      await Api.doRequest('POST', '/auth/get_code', {
+        data: {
+          'email': email,
+        }
+      });
+    } catch (error) {
+      if (error.response.status == 403) {
+        ShowToast('Code already sended');
+        return;
+      }
+
+      if (error.response.status == 422) {
+        ShowToast('Email is busy');
+        return
+      }
+
+      ShowToast('Error on server');
+      return;
+    }
+
+    ShowToast('Code sended');
+  }
+
+  completeRegistration = async (data) => {
+    let response = null;
+
+    try {
+      response = await Api.doRequest('POST', '/auth/sign_up', { data });
+    } catch (error) {
+      if (error.response.status == 403) {
+        ShowToast('Code is wrong or outdated');
+        return;
+      }
+
+      if (error.response.status == 422) {
+        ShowToast('Email is busy');
+        return
+      }
+
+      ShowToast('Error on server');
+      return;
+    }
+
+    return response.data
   }
 }
 

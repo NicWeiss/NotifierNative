@@ -6,6 +6,7 @@ import { Navigation } from 'react-native-navigation';
 
 import { SetRootNavigation, SaveLoginScreenComponentId } from 'app/helpers';
 import UserStoreContext from 'app/stores/user';
+import { NavigateTo } from 'app/helpers';
 
 import LoginView from './view';
 
@@ -24,10 +25,14 @@ const LoginScreen = observer(props => {
     SplashScreen.hide();
   }, []);
 
+  const handleSignIn = () => {
+    NavigateTo('SignUp', {});
+  }
 
   return (
     <LoginView
       logIn={logIn}
+      onSignIn={handleSignIn}
       clearSession={clearSession}
       checkSession={checkSession}
       navigateToNotifyList={navigateToNotifyList}

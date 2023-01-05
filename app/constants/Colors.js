@@ -10,5 +10,6 @@ export default {
   darkestdOrange: '#4d392c',
   gray: '#999',
   lightGray: '#ccc',
-  darkWhite: '#f6f6f6'
+  darkWhite: '#f6f6f6',
+  disabledOrande: '#a76032'
 };

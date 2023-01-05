@@ -3,28 +3,35 @@ import { StyleSheet } from 'react-native';
 import Colors from 'app/constants/Colors';
 
 export default StyleSheet.create({
-  signInWrapper: {
+  signUpWrapper: {
     position: 'absolute',
     bottom: 40,
   },
-  signIn: {
+  signUp: {
     color: '#fff',
     fontSize: 16,
     padding: 20
   },
-  loginForm: {
+  signUpForm: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.orange
   },
-  loginFormWrapper: {
+  signUpFormWrapper: {
     position: 'relative',
     alignItems: 'center',
     justifyContent: 'center',
     // height: 300,
   },
-  loginFormImageContainer: {
+  signUpHeader: {
+    textAlign: 'center',
+    width: '100%',
+    fontSize: 40,
+    fontWeight: '900',
+    paddingBottom: 60
+  },
+  signUpFormImageContainer: {
     position: 'absolute',
     top: 20,
     justifyContent: 'center',
@@ -32,47 +39,50 @@ export default StyleSheet.create({
     backgroundColor: Colors.orange,
     zIndex: 2,
   },
-  loginFormImage: {
+  signUpFormImage: {
     top: -40,
     width: 300,
     height: 200,
     backgroundColor: Colors.orange,
   },
-  loginFormContainer: {
+  signUpFormContainer: {
     position: 'absolute',
     justifyContent: 'flex-end',
     height: 420,
     width: '70%',
     zIndex: 1,
   },
-  loginFormInputWrapper: {
+  signUpFormInputWrapper: {
     width: '100%',
     height: 50,
     paddingLeft: 10,
     paddingRight: 10,
     backgroundColor: Colors.white
   },
-  loginFormInputWrapperFirst: {
+  signUpFormInputWrapperFirst: {
     marginBottom: 25
   },
-  loginFormInput: {
+  signUpFormInput: {
     width: '100%',
     height: 50,
     borderWidth: 0,
     fontSize: 16,
   },
-  loginFormErrorWrapper: {
+  disabledField: {
+    backgroundColor: '#a76032'
+  },
+  signUpFormErrorWrapper: {
     width: '100%',
     height: 65,
     justifyContent: 'center'
   },
-  loginFormError: {
+  signUpFormError: {
     flexShrink: 1,
     fontSize: 13,
     fontWeight: '600',
     color: Colors.darkRed
   },
-  loginFormAction: {
+  signUpFormAction: {
     width: '100%',
     height: 50,
     alignItems: 'center',
@@ -80,10 +90,10 @@ export default StyleSheet.create({
     borderRadius: 3,
     backgroundColor: Colors.darkestdOrange
   },
-  loginFormActionDisabled: {
-    backgroundColor: Colors.disabledOrande
+  signUpFormActionDisabled: {
+    backgroundColor: Colors.disabledOrange
   },
-  loginFormActionText: {
+  signUpFormActionText: {
     fontSize: 18,
     fontWeight: '600',
     color: Colors.white

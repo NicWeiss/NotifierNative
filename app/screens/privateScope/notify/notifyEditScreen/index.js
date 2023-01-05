@@ -6,8 +6,9 @@ import AcceptorsStoreContext from 'app/stores/lists/acceptor';
 import CategoryStoreContext from 'app/stores/lists/category';
 import NotifyItemContext from 'app/stores/item/notify';
 import { Container, Header } from 'app/components';
+import Periodic from 'app/constants/Periodic';
 
-import { PopScreen } from 'app/helpers';
+import { PopScreen, ShowToast } from 'app/helpers';
 import NotifyEditView from './view';
 
 
@@ -34,11 +35,54 @@ const NotifyEditScreen = observer(props => {
     notifyItem = loadData(props.notifyId);
   }
 
-  const onSave = async (data) => {
-    const updatedItem = await updateItem(data);
+  const validate = (data) => {
+    let isValid = true;
+    const field = [];
 
-    props.onchange(updatedItem);
-    PopScreen(props.componentId);
+    if (!data.name) {
+      isValid = false;
+      field.push('Name');
+    }
+
+    if (!data.periodic) {
+      isValid = false;
+      field.push('Period');
+    }
+
+    if (!data.time) {
+      isValid = false;
+      field.push('Time');
+    }
+
+    if (data.periodic == 'day_of_week' && !data.day_of_week) {
+      isValid = false;
+      field.push('Day of week');
+    }
+
+    if (Periodic.getPeriodsForDate.includes(data.periodic) && !data.date) {
+      isValid = false;
+      field.push('Date');
+    }
+
+    if (!data.acceptorsList || data.acceptorsList.length == 0) {
+      isValid = false;
+      field.push('Acceptors');
+    }
+
+    if (!isValid) {
+      ShowToast(`${field.join(', ')}  is missing`);
+    }
+
+    return isValid;
+  }
+
+  const onSave = async (data) => {
+    if (validate(data)) {
+      const updatedItem = await updateItem(data);
+
+      props.onchange(updatedItem);
+      PopScreen(props.componentId);
+    }
   }
 
 

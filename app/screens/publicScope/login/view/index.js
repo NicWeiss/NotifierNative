@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import {
-  ActivityIndicator, Animated, Image, Keyboard, Platform,
+  ActivityIndicator, Animated, Image, Keyboard,
   Text, TextInput, TouchableOpacity, View
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -112,6 +112,7 @@ export default class LoginView extends PureComponent {
 
   render() {
     const { login, password, errorMessage, isLoading, isHideInputs } = this.state;
+    const { onSignIn } = this.props;
     const isSubmitDisabled = !login || !password || !!errorMessage || isLoading;
 
     return (
@@ -186,6 +187,13 @@ export default class LoginView extends PureComponent {
               </TouchableOpacity>
             </Animated.View>
           }
+        </Animated.View>
+        <Animated.View style={[styles.signInWrapper, { opacity: this.inputsOpacity }]}>
+          <TouchableOpacity onPress={onSignIn}>
+            <Text style={styles.signIn}>
+              Sign up
+            </Text>
+          </TouchableOpacity >
         </Animated.View>
       </View>
     );
