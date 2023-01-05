@@ -2,8 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-import Colors from 'app/constants/Colors';
-
 
 export default class Input extends PureComponent {
 
@@ -15,14 +13,16 @@ export default class Input extends PureComponent {
   }
 
   render() {
-    const { value, onChangeText, placeholder, label } = this.props;
+    const { value, onChangeText, placeholder, label, multiline } = this.props;
 
     return (
       <View>
         <Text style={styles.label}>{label}</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, multiline ? styles.multiline : {}]}
           value={value}
+          multiline={multiline ? true : false}
+          numberOfLines={multiline ? 5 : 1}
           onChangeText={(text) => onChangeText(text)}
           placeholder={placeholder}
         />
@@ -39,7 +39,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 5
+    borderRadius: 5,
+  },
+
+  multiline: {
+    textAlignVertical: "top"
   },
 
   label: {

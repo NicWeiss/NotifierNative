@@ -1,6 +1,6 @@
 const processToTwoDigits = value => value > 9 ? value : `0${value}`;
 
-// Формат входящих дат: js объект Date
+// Input date format: js object Date
 export default (dateStart, dateEnd) => {
   try {
     if (dateStart && dateEnd) {

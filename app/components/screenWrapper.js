@@ -23,6 +23,8 @@ const ScreenWrapper = ({
   isWithTopPanel = false,
   isWithBottomPanel = false,
   emptyDataMessage,
+  emptyDataButton,
+  onEmptyDataButtonPress,
   children
 }) => {
   let containerHeight = deviceHeight - headerHeight;
@@ -62,6 +64,9 @@ const ScreenWrapper = ({
             {emptyDataMessage}
           </Text>
         </ScrollView>
+        {emptyDataButton && [emptyDataButton].map((EmptyDataButton, index) => (
+          <EmptyDataButton key={`EmptyDataButton_${index}`} onPress={onEmptyDataButtonPress} />
+        ))}
       </Container>
     );
   } else {

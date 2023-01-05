@@ -1,4 +1,4 @@
-// Формат входящих дат: YYYY-DD-MMTHH-MM+HH:MM
+// Input date format: YYYY-DD-MMTHH-MM+HH:MM
 export default (dateStart, dateEnd) => {
   try {
     if (dateStart && dateEnd) {

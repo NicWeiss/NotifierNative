@@ -1,4 +1,4 @@
-// Формат входящих дат: YYYY-DD-MM
+// Input date format: YYYY-DD-MM
 export default value => {
   try {
     const dateSplitted = value.split('-');

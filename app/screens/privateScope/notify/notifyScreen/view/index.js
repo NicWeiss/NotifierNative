@@ -9,7 +9,7 @@ import styles from './styles';
 
 
 const NotifyView = ({
-  item, isLoading, onChangeState
+  item, isLoading, onEdit, onChangeState
 }) => {
 
   if (isLoading) {
@@ -27,7 +27,7 @@ const NotifyView = ({
         <View style={styles.text}>
           {item.text ?
             <Text>{item.text}</Text> :
-            <Text style={styles.noText}>Описание отсутствует</Text>
+            <Text style={styles.noText}>Description is missing</Text>
           }
         </View>
 
@@ -58,17 +58,17 @@ const NotifyView = ({
           </View>
         </View>
 
-        <Text>Получатели: {item.acceptorsList.map(item => { return item.name }).join(", ")}</Text>
+        <Text>Acceptors: {item.acceptorsList.map(item => { return item.name }).join(", ")}</Text>
       </View>
-      <View>
-        <TouchableOpacity style={styles.buttonPlace}>
-          <Text style={[styles.button, styles.editButton]}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={onChangeState} style={styles.buttonPlace}>
+      <View style={styles.buttonRowPlace}>
+        <TouchableOpacity onPress={onChangeState} style={[styles.buttonMedium]}>
           {item.status == 1 ?
             <Text style={[styles.button, styles.disableButton]}>Disable</Text> :
             <Text style={[styles.button, styles.activateButton]}>Activate</Text>
           }
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onEdit} style={[styles.buttonMedium]}>
+          <Text style={[styles.button, styles.editButton]}>Edit</Text>
         </TouchableOpacity>
       </View>
     </View>

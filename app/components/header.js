@@ -33,7 +33,7 @@ export default class Header extends PureComponent {
   }
 
   render() {
-    const { title, leftButtons, rightButtons } = this.props;
+    const { title, leftButtons, rightButtons, onRightButtonPress } = this.props;
 
     return (
       <View style={styles.header}>
@@ -60,7 +60,7 @@ export default class Header extends PureComponent {
 
         <View style={styles.headerSideInnerBlock}>
           {rightButtons.map((RightButton, index) => (
-            <RightButton key={`RightButton_${index}`} />
+            <RightButton key={`RightButton_${index}`} onPress={onRightButtonPress} />
           ))}
         </View>
       </View>

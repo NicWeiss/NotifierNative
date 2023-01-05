@@ -7,7 +7,7 @@ import Periodic from 'app/constants/Periodic';
 import { NavigateTo } from 'app/helpers';
 
 
-export const NotifyListItem = ({ item, index, onChange }) => {
+export const NotifyListItem = ({ item, index, onChange, handleRefresh }) => {
 
   const handleChange = (updatedItem) => {
     onChange(index, updatedItem)
@@ -15,7 +15,8 @@ export const NotifyListItem = ({ item, index, onChange }) => {
 
   const handleSelectItem = () => NavigateTo('Notify', {
     notifyId: item.id,
-    onchange: handleChange
+    onchange: handleChange,
+    handleRefresh: handleRefresh
   });
 
   return (

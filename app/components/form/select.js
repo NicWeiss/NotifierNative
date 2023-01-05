@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 
-import Colors from 'app/constants/Colors';
-
 
 export default class Select extends PureComponent {
 
@@ -19,7 +17,17 @@ export default class Select extends PureComponent {
   }
 
   render() {
-    const { label, list, labelKey, valueKey, onValueChange, placeholder, selectedValue } = this.props;
+    const { label, list, labelKey, valueKey, onValueChange, placeholder, selectedValue,
+      disableNotSelected } = this.props;
+
+    const handlePick = (itemValue, itemIndex) => {
+      if (itemIndex == 0 && disableNotSelected) {
+        return;
+      }
+
+      onValueChange(itemValue, itemIndex);
+    }
+
 
     return (
       <View>
@@ -28,8 +36,9 @@ export default class Select extends PureComponent {
         <View style={styles.select}>
           <Picker
             selectedValue={selectedValue}
-            onValueChange={(itemValue, itemIndex) => onValueChange(itemValue, itemIndex)}
+            onValueChange={(itemValue, itemIndex) => handlePick(itemValue, itemIndex)}
           >
+
             <Picker.Item
               label={placeholder || 'Not selected'}
               value=''

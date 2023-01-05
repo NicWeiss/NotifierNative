@@ -22,7 +22,7 @@ const ProfileScreen = observer(props => {
   return (
     <Container>
       <Header
-        title='Профиль'
+        title='Settings'
         backButtonActionArgs={{ componentId: props.componentId }}
       />
 

@@ -103,7 +103,7 @@ export default class LoginView extends PureComponent {
         console.log(errorResponse);
         this.changeErrorMessage(errorResponse.error);
       } else {
-        this.changeErrorMessage('Не удалось установить соединение с сервером. Попробуйте позже.');
+        this.changeErrorMessage('Failed to establish a connection to the server. Try later.');
       }
     }
 

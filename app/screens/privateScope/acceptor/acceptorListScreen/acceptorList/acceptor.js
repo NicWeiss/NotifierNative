@@ -24,7 +24,7 @@ const AcceptorList = observer(() => {
   let [itemForModal, setItemForModal] = useState({})
   let [modalOpacity] = useState(new Animated.Value(0))
 
-  const emptyDataMessage = 'Список получателей пуст';
+  const emptyDataMessage = 'List of acceptors is empty';
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)

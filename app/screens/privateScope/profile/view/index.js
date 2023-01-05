@@ -22,14 +22,14 @@ const ProfileView = ({
         style={styles.profileLink}
         onPress={handleReloadApp}
       >
-        <Text style={styles.profileLinkText}>Перезагрузить приложение</Text>
+        <Text style={styles.profileLinkText}>Reboot app</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={styles.profileLink}
         onPress={handleLogOut}
       >
-        <Text style={styles.profileLinkText}>Выйти</Text>
+        <Text style={styles.profileLinkText}>Sign out</Text>
       </TouchableOpacity>
     </View>
   );

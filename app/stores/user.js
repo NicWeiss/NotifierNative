@@ -88,7 +88,7 @@ class UserStore {
       this.user = ValidateResponseData(responseUser, UserModel);
       this.user.storageName = this.user.name.replace(' ', '');
     } else {
-      ShowToast('Не удалось загрузить данные пользователя');
+      ShowToast('Failed to load user data');
     }
   }
 }

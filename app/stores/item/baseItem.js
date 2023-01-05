@@ -5,19 +5,21 @@ import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
 
 class BaseItemStore {
 
-  @observable isLoading = true
+  @observable isLoading = false
   @observable isRefreshing = false;
-  @observable item = {};
+  @observable item = { id: null };
   model = {};
   entity = '';
   entityInUrl = '';
 
   @action getItem = () => this.item;
 
-  @action clear = () => {
-    this.item = [];
+  @action clear = async () => {
+    this.item = { id: null };
     this.isRefreshing = false;
-    this.isLoading = true;
+    this.isLoading = false;
+
+    return this.item;
   }
 
   @action loadData = async (id) => {
@@ -39,7 +41,7 @@ class BaseItemStore {
       this.item = item;
     }
 
-    this.query({ method: 'DELETE', id: this.item.id });
+    await this.query({ method: 'DELETE', id: this.item.id });
   };
 
   @action updateItem = async (item) => {

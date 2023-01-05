@@ -22,7 +22,7 @@ const CategoryList = observer(() => {
   let [itemForModal, setItemForModal] = useState({})
   let [modalOpacity] = useState(new Animated.Value(0))
 
-  const emptyDataMessage = 'Список категорий пуст';
+  const emptyDataMessage = 'List of categories is empty';
 
   const onChangeVisibility = async (index, item) => {
     const newItem = await changeVisibility(item)

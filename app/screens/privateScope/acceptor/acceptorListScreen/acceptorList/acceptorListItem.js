@@ -3,7 +3,6 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Colors from 'app/constants/Colors';
-import { NavigateTo } from 'app/helpers';
 
 
 export const AcceptorListItem = (

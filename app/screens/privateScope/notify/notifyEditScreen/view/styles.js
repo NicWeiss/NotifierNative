@@ -9,7 +9,7 @@ export default StyleSheet.create({
     padding: 24,
     backgroundColor: Colors.white,
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
 
   name: {
@@ -55,6 +55,7 @@ export default StyleSheet.create({
   buttonPlace: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: 40
   },
 
   buttonRowPlace: {
@@ -77,8 +78,8 @@ export default StyleSheet.create({
   },
 
   buttonlarge: {
-    width: '70%',
-    padding: 10,
+    width: '100%',
+    marginVertical: 10,
   },
 
   disableButton: {

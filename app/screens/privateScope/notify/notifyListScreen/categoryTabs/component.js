@@ -12,7 +12,7 @@ const CategoryTabs = observer((props) => {
   const { onSelect } = props
   let { list } = useContext(CategoryStoreContext);
   const newList = [
-    { id: "0", name: "Без категории" },
+    { id: "0", name: "Uncategorized" },
     ...list.filter((item => item && item.is_hidden != 1))
   ]
 
