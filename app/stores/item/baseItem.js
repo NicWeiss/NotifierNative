@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, ValidateResponseData } from 'app/helpers';
+import { defaultAdapter, defaultSerializer } from '../serializer/defaultSerializer';
 
 
 class BaseItemStore {
@@ -9,6 +10,8 @@ class BaseItemStore {
   @observable isRefreshing = false;
   @observable item = { id: null };
   model = {};
+  adaptData = defaultAdapter;
+  serializeData = defaultSerializer;
   entity = '';
   entityInUrl = '';
 
@@ -70,7 +73,7 @@ class BaseItemStore {
 
     if (data) {
       queryData = {
-        data: { [this.entity]: data }
+        data: { [this.entity]: this.serializeData(data) }
       }
     }
 
@@ -81,7 +84,7 @@ class BaseItemStore {
     }
 
     if (response && response.data && response.data[this.entity]) {
-      this.item = ValidateResponseData(response.data[this.entity], this.model);
+      this.item = this.adaptData(ValidateResponseData(response.data[this.entity], this.model));
     } else {
       this.item = {};
     }

@@ -16,6 +16,8 @@
   "dependencies": {
     "@react-native-community/async-storage": "~1.6.2",
     "@react-native-community/picker": "~1.8.1",
+    "@react-native-firebase/app": "~12.1.0",
+    "@react-native-firebase/messaging": "~12.1.0",
     "axios": "~0.19.2",
     "crypto": "~1.0.1",
     "crypto-js": "~4.0.0",

@@ -73,6 +73,7 @@ class UserStore {
     this.isRefreshing = false;
   }
 
+
   requestData = async () => {
     let response = null;
 

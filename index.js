@@ -6,6 +6,8 @@ import { Navigation } from 'react-native-navigation';
 import RegisterScreens from 'app/screens';
 
 
+
+
 RegisterScreens();
 
 Navigation.events().registerAppLaunchedListener(async () => {
@@ -90,3 +92,21 @@ Navigation.events().registerAppLaunchedListener(async () => {
     backAction
   );
 });
+
+import { AppRegistry } from 'react-native';
+import { pushControllerInit } from './app/helpers/PushController';
+// import messaging from '@react-native-firebase/messaging';
+
+// messaging().setBackgroundMessageHandler(async remoteMessage => {
+//   console.log('Push in headless');
+// });
+pushControllerInit();
+
+function HeadlessCheck({ isHeadless }) {
+  if (isHeadless) {
+    return null;
+  }
+
+}
+
+AppRegistry.registerComponent('app', () => HeadlessCheck);

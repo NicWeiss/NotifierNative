@@ -1,6 +1,7 @@
 import { action, observable } from 'mobx';
 
 import { Api, ProcessErrors, SerializeQueryParams, ValidateResponseData } from 'app/helpers';
+import { defaultAdapter, defaultSerializer } from '../serializer/defaultSerializer';
 
 
 class BaseList {
@@ -9,6 +10,8 @@ class BaseList {
   @observable isRefreshing = false;
   @observable list = [];
   model = {};
+  adaptData = defaultAdapter;
+  serializeData = defaultSerializer;
   entity = '';
   entityInUrl = '';
   queryParamas = { page: 1, per_page: 25 };
@@ -75,7 +78,7 @@ class BaseList {
     }
 
     if (response && response.data && response.data[this.entity]) {
-      this.list = ValidateResponseData(response.data[this.entity], this.model);
+      this.list = this.adaptData(ValidateResponseData(response.data[this.entity], this.model));
     }
 
     if (!this.list) {

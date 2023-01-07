@@ -1,8 +1,9 @@
 export default (data, model = {}) => {
   const isDataArray = Array.isArray(data);
+  let mapped = {};
 
   if (isDataArray) {
-    return data.map(item => {
+    mapped = data.map(item => {
       let result = { ...model };
 
       for (let key in model) {
@@ -14,14 +15,15 @@ export default (data, model = {}) => {
       return result;
     });
   } else {
-    let result = { ...model };
+    mapped = { ...model };
 
     for (let key in model) {
       if (data[key]) {
-        result[key] = data[key];
+        mapped[key] = data[key];
       }
     }
 
-    return result;
   }
+
+  return mapped;
 };

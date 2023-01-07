@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "232063707382",
+    "project_id": "notifier-1a4d9",
+    "storage_bucket": "notifier-1a4d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:232063707382:android:6eb28710adbba437c924d7",
+        "android_client_info": {
+          "package_name": "com.notifiernative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "232063707382-nqdpg56g15h47mjsisnsabjbm7bujruc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5JHtzfUsfoY8bxixiW1TAa4V7cevvaG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "232063707382-nqdpg56g15h47mjsisnsabjbm7bujruc.apps.googleusercontent.com",
+              "client_type": 2
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

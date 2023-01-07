@@ -14,11 +14,12 @@ import SerializeQueryParams from './SerializeQueryParams'
 import SetRootNavigation from './SetRootNavigation';
 import ShowToast from './ShowToast';
 import ValidateResponseData from './ValidateResponseData';
+import PushController from './PushController';
 
 
 export {
   Api, AwaitableAnimation, ClearStorage, ClearObject, NavigateTo, ParseDate,
   ParseDateTimePeriod, PopScreen, PopToLoginScreen, ProcessDateToStrings,
   ProcessErrors, SaveLoginScreenComponentId, SerializeQueryParams, SetRootNavigation,
-  ShowToast, ValidateResponseData
+  ShowToast, ValidateResponseData, PushController
 };

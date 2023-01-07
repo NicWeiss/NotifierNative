@@ -185,6 +185,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'com.android.support:support-annotations:+'
+    implementation platform('com.google.firebase:firebase-messaging:17.3.4')
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
@@ -220,3 +221,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.google.gms.google-services'
