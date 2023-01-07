@@ -4,5 +4,6 @@ export default {
   name: null,
   status: "1",
   system_id: null,
-  type: null
+  type: null,
+  is_system: false
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import ShowToast from 'app/helpers/ShowToast';
 import Colors from 'app/constants/Colors';
 
 
@@ -14,6 +15,12 @@ export const AcceptorListItem = (
   }
 
   const handleSelectItem = () => {
+    if (item.is_system) {
+      ShowToast('System acceptors can\'t be edited!');
+
+      return;
+    }
+
     onEdit(index, item)
   }
 
@@ -51,9 +58,14 @@ export const AcceptorListItem = (
           }
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleDelete} style={styles.inlineButton}>
-          <Icon name='delete' style={[styles.deleteIcon, styles.icon]} />
-        </TouchableOpacity>
+        {item.is_system == false ?
+          <TouchableOpacity onPress={handleDelete} style={styles.inlineButton}>
+            <Icon name='delete' style={[styles.deleteIcon, styles.icon]} />
+          </TouchableOpacity> :
+          <View style={styles.inlineButton}>
+            <Icon name='delete' style={[styles.inactiveDeleteIcon, styles.icon]} />
+          </View>
+        }
       </View>
     </View>
   );
@@ -111,6 +123,10 @@ const styles = StyleSheet.create({
 
   hideIcon: {
     color: '#ccc'
+  },
+
+  inactiveDeleteIcon: {
+    color: '#000'
   }
 });
 
