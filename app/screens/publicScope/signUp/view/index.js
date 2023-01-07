@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
-import {
-  ActivityIndicator, Animated, Image, Keyboard,
-  Text, TextInput, TouchableOpacity, View
-} from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { ShowToast } from 'app/helpers';
 import Colors from 'app/constants/Colors';
-// import Logo from 'app/assets/images/logo.png';
 
 import styles from './styles';
 
@@ -21,7 +15,6 @@ const SignUpView = ({ onGetCode, onCompleteRegistration }) => {
   const [isEnableCodefield, setCodeFieldState] = useState(false);
 
   const handleChange = (key, value) => {
-    console.log(key, value);
     let updatedValue = { [key]: value || '' };
 
     setUserData(userData => ({
@@ -149,5 +142,5 @@ const SignUpView = ({ onGetCode, onCompleteRegistration }) => {
     </View >
   );
 }
-// };
+
 export default SignUpView;

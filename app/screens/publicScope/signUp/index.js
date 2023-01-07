@@ -6,13 +6,14 @@ import { observer } from 'mobx-react-lite';
 
 import { SetRootNavigation } from 'app/helpers';
 import UserStoreContext from 'app/stores/user';
+import { sendFcmToken } from 'app/helpers/PushController';
 
 import SignUpView from './view';
 
 
 const SignUpScreen = observer(props => {
 
-  const { getCode, completeRegistration } = useContext(UserStoreContext);
+  const { getCode, completeRegistration, isLoading } = useContext(UserStoreContext);
 
   useEffect(() => {
     Orientation.lockToPortrait();
@@ -20,11 +21,19 @@ const SignUpScreen = observer(props => {
   }, []);
 
   const onGetCode = (email) => {
+    if (isLoading) {
+      return;
+    }
+
     console.log('Try get gode for', email);
     getCode(email)
   }
 
   const onCompleteRegistration = async (data) => {
+    if (isLoading) {
+      return;
+    }
+
     const session = await completeRegistration(data);
 
     if (session) {
@@ -32,6 +41,7 @@ const SignUpScreen = observer(props => {
       await AsyncStorage.setItem('secret', data.password);
       await AsyncStorage.setItem('session', session);
 
+      sendFcmToken();
       SetRootNavigation('NotifyList');
     }
   }

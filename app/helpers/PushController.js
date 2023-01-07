@@ -13,7 +13,7 @@ const showMessage = (remoteMessage) => {
   ]);
 }
 
-const getToken = async () => {
+const sendFcmToken = async () => {
   const fcm_token = await messaging().getToken();
 
   if (fcm_token) {
@@ -73,7 +73,7 @@ async function showStoredMessages() {
   }
 }
 
-function pushControllerInit() {
+function setListners() {
   // while app is opened
   messaging().onMessage(showMessage)
   // open from tray when app is not closed
@@ -83,8 +83,6 @@ function pushControllerInit() {
     console.log('Push in headless');
     storeMessage(remoteMessage);
   });
-
-  getToken();
 }
 
-export { pushControllerInit, showStoredMessages }
+export { setListners, showStoredMessages, sendFcmToken }

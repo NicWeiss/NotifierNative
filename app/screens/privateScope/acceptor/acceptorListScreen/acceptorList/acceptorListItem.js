@@ -15,7 +15,7 @@ export const AcceptorListItem = (
   }
 
   const handleSelectItem = () => {
-    if (item.is_system) {
+    if (Boolean(Number(item.is_system))) {
       ShowToast('System acceptors can\'t be edited!');
 
       return;

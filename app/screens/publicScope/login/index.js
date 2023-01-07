@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { SetRootNavigation, SaveLoginScreenComponentId } from 'app/helpers';
 import UserStoreContext from 'app/stores/user';
 import { NavigateTo } from 'app/helpers';
-import { showStoredMessages } from 'app/helpers/PushController';
+import { showStoredMessages, sendFcmToken } from 'app/helpers/PushController';
 
 import LoginView from './view';
 
@@ -18,6 +18,7 @@ const LoginScreen = observer(props => {
 
   const navigateToNotifyList = () => {
     SetRootNavigation('NotifyList');
+    sendFcmToken();
     showStoredMessages();
   }
 

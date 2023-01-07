@@ -1,11 +1,10 @@
 import 'mobx-react-lite/batchingForReactNative';
 
-import { BackHandler, Alert } from "react-native";
+import { AppRegistry, BackHandler, Alert } from "react-native";
 import { Navigation } from 'react-native-navigation';
 
 import RegisterScreens from 'app/screens';
-
-
+import { setListners } from './app/helpers/PushController';
 
 
 RegisterScreens();
@@ -93,14 +92,8 @@ Navigation.events().registerAppLaunchedListener(async () => {
   );
 });
 
-import { AppRegistry } from 'react-native';
-import { pushControllerInit } from './app/helpers/PushController';
-// import messaging from '@react-native-firebase/messaging';
 
-// messaging().setBackgroundMessageHandler(async remoteMessage => {
-//   console.log('Push in headless');
-// });
-pushControllerInit();
+setListners();
 
 function HeadlessCheck({ isHeadless }) {
   if (isHeadless) {

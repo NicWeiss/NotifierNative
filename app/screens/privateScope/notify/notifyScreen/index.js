@@ -35,7 +35,7 @@ const NotifyScreen = observer(props => {
   });
 
   const handleDelete = () => {
-    Alert.alert("", `Catedory ${item.name} will be deleted`, [
+    Alert.alert("", `Notification ${item.name} will be deleted`, [
       {
         text: "Cancel",
         onPress: () => { },

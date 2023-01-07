@@ -30,7 +30,7 @@ const CategoryList = observer(() => {
   }
 
   const onDelete = (index, item) => {
-    Alert.alert("", `Catedory ${item.name} will be deleted`, [
+    Alert.alert('', ` Category ${item.name} will be deleted \n\nWith all notifications inside ?`, [
       {
         text: "Cancel",
         onPress: () => { },

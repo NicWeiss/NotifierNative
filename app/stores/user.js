@@ -94,6 +94,8 @@ class UserStore {
   }
 
   getCode = async (email) => {
+    this.isLoading = true;
+
     try {
       await Api.doRequest('POST', '/auth/get_code', {
         data: {
@@ -101,6 +103,8 @@ class UserStore {
         }
       });
     } catch (error) {
+      this.isLoading = false;
+
       if (error.response.status == 403) {
         ShowToast('Code already sended');
         return;
@@ -116,15 +120,18 @@ class UserStore {
     }
 
     ShowToast('Code sended');
+    this.isLoading = false;
   }
 
   completeRegistration = async (data) => {
+    this.isLoading = true;
     let response = null;
 
     try {
       response = await Api.doRequest('POST', '/auth/sign_up', { data });
     } catch (error) {
       if (error.response.status == 403) {
+        this.isLoading = false;
         ShowToast('Code is wrong or outdated');
         return;
       }
@@ -138,6 +145,7 @@ class UserStore {
       return;
     }
 
+    this.isLoading = false;
     return response.data
   }
 }
