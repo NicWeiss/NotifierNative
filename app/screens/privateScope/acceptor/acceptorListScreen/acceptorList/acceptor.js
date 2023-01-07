@@ -46,36 +46,37 @@ const AcceptorList = observer(() => {
   }
 
   const deleteAcceptor = async (index, item) => {
-    await deleteItem(item)
-    deleteFromList(index)
+    await deleteItem(item);
+    deleteFromList(index);
   }
 
   const onShowEditModal = (index, item) => {
-    setItemForModal(item)
-    setIsShowModal(true)
-    AwaitableAnimation(modalOpacity, 1, 150)
+    setItemForModal(item);
+    setIsShowModal(true);
+    AwaitableAnimation(modalOpacity, 1, 150);
   }
 
   const onHideEditModal = async () => {
-    await AwaitableAnimation(modalOpacity, 0, 150)
-    setIsShowModal(false)
+    await AwaitableAnimation(modalOpacity, 0, 150);
+    setIsShowModal(false);
   }
 
   const onSaveInModal = async (item) => {
     if (item.id) {
-      let updatedItem = await updateItem(item)
-      updateInList(updatedItem)
+      let updatedItem = await updateItem(item);
+      console.log(updatedItem);
+      updateInList(updatedItem);
     } else {
-      let newItem = await createItem(item)
-      pushToList(newItem)
+      let newItem = await createItem(item);
+      pushToList(newItem);
     }
 
-    await AwaitableAnimation(modalOpacity, 0, 150)
-    setIsShowModal(false)
+    await AwaitableAnimation(modalOpacity, 0, 150);
+    setIsShowModal(false);
   }
 
   const handleCreateNew = async () => {
-    onShowEditModal(null, {})
+    onShowEditModal(null, {});
   }
 
   return (

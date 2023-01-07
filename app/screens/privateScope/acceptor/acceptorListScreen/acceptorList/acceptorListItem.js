@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ShowToast from 'app/helpers/ShowToast';
 import Colors from 'app/constants/Colors';
+import SystemTypeIcon from './systemTypeIcon';
 
 
 export const AcceptorListItem = (
@@ -43,6 +44,7 @@ export const AcceptorListItem = (
     >
       <TouchableOpacity style={styles.itemLeftPart} onPress={handleSelectItem} >
         <View style={styles.itemInfoRow}>
+          <SystemTypeIcon type={item.type} />
           <Text style={styles.itemName}>
             {item.name}
           </Text>
@@ -89,7 +91,9 @@ const styles = StyleSheet.create({
 
   itemInfoRow: {
     paddingVertical: 18,
-    width: '100%'
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row'
   },
 
   itemLeftPart: {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Picker, Text, TouchableOpacity, View, TextInput } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
+import RenderHtml from 'react-native-render-html';
 
 import { Input, Select } from 'app/components/form';
 import Colors from 'app/constants/Colors';
@@ -12,11 +13,24 @@ const AcceptorEditModal = ({
 
   const [editableItem, setItem] = useState({});
   const [selectedSystem, setSelectedSystem] = useState();
+  const [systemHelp, setSystemHelp] = useState('<span>test</span>');
 
   useEffect(() => {
-    setSelectedSystem(item.system_id);
-    setItem(item)
+    setItem({ ...item });
+    setSystemById(item.system_id);
   }, []);
+
+  const setSystemById = (id) => {
+    const system = listOfSystems.filter(el => el.id == id);
+    setSelectedSystem(id);
+
+    if (system.length == 1) {
+      setSystemHelp(system[0].help)
+    } else {
+      setSystemHelp('')
+    }
+    editableItem.system_id = id;
+  }
 
   if (isLoading) {
     return (
@@ -54,10 +68,18 @@ const AcceptorEditModal = ({
           list={listOfSystems}
           selectedValue={selectedSystem}
           onValueChange={(itemValue, itemIndex) => {
-            setSelectedSystem(itemValue);
-            editableItem.system_id = itemValue;
+            setSystemById(itemValue);
           }}
         />
+
+        {!!systemHelp &&
+          <View style={styles.helpContainer}>
+            <RenderHtml
+              contentWidth={1}
+              source={{ html: systemHelp }}
+            />
+          </View>
+        }
 
         <Input
           label="Acceptor account in selected system"

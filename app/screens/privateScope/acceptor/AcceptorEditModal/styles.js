@@ -72,4 +72,8 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: '100%',
   },
+
+  helpContainer: {
+    paddingBottom: 20
+  }
 });
