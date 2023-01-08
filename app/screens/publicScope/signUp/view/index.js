@@ -6,7 +6,7 @@ import Colors from 'app/constants/Colors';
 
 import styles from './styles';
 
-const RE_PASSSWORD = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/
+const RE_PASSSWORD = /^([#$%^&*_+=@\-0-9a-zA-Z]){8,}$/
 const RE_EMAIL = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 

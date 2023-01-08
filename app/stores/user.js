@@ -9,7 +9,7 @@ import UserModel from './models/user';
 
 
 class UserStore {
-  @observable isLoading = true;
+  @observable isLoading = false;
   @observable isRefreshing = false;
   @observable user = { ...UserModel };
 
