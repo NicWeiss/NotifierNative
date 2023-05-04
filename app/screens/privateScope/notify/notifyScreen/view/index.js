@@ -58,11 +58,11 @@ const NotifyView = ({
           </View>
         </View>
 
-        <Text>Acceptors: {item.acceptorsList.map(item => { return item.name }).join(", ")}</Text>
+        <Text>Acceptors: {item.acceptors.map(el => { return el.name }).join(", ")}</Text>
       </View>
       <View style={styles.buttonRowPlace}>
         <TouchableOpacity onPress={onChangeState} style={[styles.buttonMedium]}>
-          {item.status == 1 ?
+          {!item.is_disabled ?
             <Text style={[styles.button, styles.disableButton]}>Disable</Text> :
             <Text style={[styles.button, styles.activateButton]}>Activate</Text>
           }

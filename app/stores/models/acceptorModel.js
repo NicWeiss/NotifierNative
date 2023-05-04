@@ -2,7 +2,7 @@ export default {
   account: null,
   id: null,
   name: null,
-  status: "1",
+  is_disabled: false,
   system_id: null,
   type: null,
   is_system: false

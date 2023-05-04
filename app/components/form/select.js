@@ -18,7 +18,7 @@ export default class Select extends PureComponent {
 
   render() {
     const { label, list, labelKey, valueKey, onValueChange, placeholder, selectedValue,
-      disableNotSelected } = this.props;
+      disableNotSelected, skipByField, skipWithValue } = this.props;
 
     const handlePick = (itemValue, itemIndex) => {
       if (itemIndex == 0 && disableNotSelected) {
@@ -44,11 +44,17 @@ export default class Select extends PureComponent {
               value=''
               key={(Math.random() + 1).toString(36).substring(7)} />
 
-            {list.map(element =>
-              <Picker.Item
+            {list.map(element => {
+              if (skipByField && skipWithValue) {
+                if (element[skipByField] == skipWithValue) {
+                  return
+                }
+              }
+              return (<Picker.Item
                 label={element[labelKey || 'name']}
                 value={element[valueKey || 'id']}
-                key={(Math.random() + 1).toString(36).substring(7)} />
+                key={(Math.random() + 1).toString(36).substring(7)} />)
+            }
             )}
           </Picker>
         </View>

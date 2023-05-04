@@ -24,7 +24,7 @@ const NotifyEditView = ({
     setSelectedCategory(item.category_id);
     setSelectedPeriod(item.periodic);
     setSelectedDayOfWeek(item.day_of_week)
-    setSelectedAcceptors(item.acceptorsList)
+    setSelectedAcceptors(item.acceptors)
     setItem(item)
 
     if (item.date) {
@@ -152,7 +152,7 @@ const NotifyEditView = ({
           items={listOfAcceptors}
           onSelect={(selectedItems) => {
             setSelectedAcceptors(selectedItems);
-            editableItem.acceptorsList = selectedItems;
+            editableItem.acceptors = selectedItems;
           }}
           selectedItems={selectedAcceptors || []}
           placeholder="Pick ..."

@@ -44,7 +44,7 @@ export const AcceptorListItem = (
     >
       <TouchableOpacity style={styles.itemLeftPart} onPress={handleSelectItem} >
         <View style={styles.itemInfoRow}>
-          <SystemTypeIcon type={item.type} />
+          <SystemTypeIcon system_id={item.system_id} />
           <Text style={styles.itemName}>
             {item.name}
           </Text>
@@ -54,7 +54,7 @@ export const AcceptorListItem = (
       <View style={styles.buttonsPart}>
         <TouchableOpacity onPress={handleChangeVisibility} style={styles.inlineButton}>
           {
-            item && item.status == "0" ?
+            item && item.is_disabled ?
               <Icon name='bell-off' style={[styles.hideIcon, styles.icon]} /> :
               <Icon name='bell' style={[styles.showIcon, styles.icon]} />
           }

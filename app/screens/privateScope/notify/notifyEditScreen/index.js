@@ -19,11 +19,11 @@ const NotifyEditScreen = observer(props => {
   const { list: listOfCategories, loadData: loadCategories } = useContext(CategoryStoreContext);
   const { list: listOfAcceptors, loadData: loadAcceptors } = useContext(AcceptorsStoreContext);
 
-  if (!listOfCategories || listOfCategories.length == 0) {
+  if (listOfCategories == null) {
     loadCategories();
   }
 
-  if (!listOfAcceptors || listOfAcceptors.length == 0) {
+  if (listOfAcceptors == null) {
     loadAcceptors();
   }
 
@@ -64,7 +64,7 @@ const NotifyEditScreen = observer(props => {
       field.push('Date');
     }
 
-    if (!data.acceptorsList || data.acceptorsList.length == 0) {
+    if (!data.acceptors || data.acceptors.length == 0) {
       isValid = false;
       field.push('Acceptors');
     }

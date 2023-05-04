@@ -14,14 +14,23 @@ const showMessage = (remoteMessage) => {
 }
 
 const sendFcmToken = async () => {
-  const fcm_token = await messaging().getToken();
+  let fcm_token = null;
+
+  try{
+    fcm_token = await messaging().getToken();
+  } catch (e) {
+    console.log('[FCM] Some errors while getting token', e);
+
+    return
+  }
 
   if (fcm_token) {
     console.log('Current token is', fcm_token);
     try {
-      response = await Api.doRequest('POST', 'acceptors/update_push_tokens', { data: { fcm_token } });
+      response = await Api.doRequest('POST', 'acceptors/update_push_tokens', { data: { token: fcm_token } });
     } catch (error) {
       console.log('Can\'t send fcm to server', error);
+
       return;
     }
   }

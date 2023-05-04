@@ -68,7 +68,7 @@ export const NotifyListItem = ({ item, index, onChange, handleRefresh }) => {
         <View style={styles.itemRightPart}>
           <View style={styles.itemInfoRow}>
             {
-              item.status == '1' ?
+              !item.is_disabled ?
                 <Icon style={styles.bell} name={'bell'} /> :
                 <Icon style={styles.bellOff} name={'bell-off'} />
             }

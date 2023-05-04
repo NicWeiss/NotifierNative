@@ -1,5 +1,5 @@
 {
   "type": "prod",
-  "domain": "https://notifier.nic-weiss.tech",
-  "apiPrefix": "api"
+  "domain": "http://192.168.10.14:8800",
+  "apiPrefix": "api/v2"
 }

@@ -70,6 +70,8 @@ const AcceptorEditModal = ({
           onValueChange={(itemValue, itemIndex) => {
             setSystemById(itemValue);
           }}
+          skipByField="is_system"
+          skipWithValue={true}
         />
 
         {!!systemHelp &&

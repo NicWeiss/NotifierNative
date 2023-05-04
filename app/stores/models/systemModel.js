@@ -1,7 +1,8 @@
 export default {
   id: null,
   help: null,
-  is_enable: "1",
+  is_disabled: false,
+  is_system: false,
   name: null,
   type: null
 };

@@ -16,7 +16,7 @@ class NotifyItemStore extends BaseItemStore {
   }
 
   @action changeState = async () => {
-    this.item.status = String(this.item.status) == '1' ? '0' : '1';
+    this.item.is_disabled = this.item.is_disabled == false ? true : false;
     await this.query({ method: 'PUT', id: this.item.id, data: this.item });
 
     return this.item;

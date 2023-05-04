@@ -1,14 +1,14 @@
 export default {
   id: null,
-  acceptorsList: null,
+  acceptors: [],
   date: null,
   day_of_week: null,
   name: null,
   periodic: null,
-  status: "1",
+  is_disabled: false,
   text: null,
   time: null,
   time_zone_offset: null,
   user_id: null,
-  category_id: 0,
+  category_id: null,
 };

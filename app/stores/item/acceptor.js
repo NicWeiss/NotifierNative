@@ -20,7 +20,7 @@ class AcceptorItemStore extends BaseItemStore {
       this.item = item;
     }
 
-    this.item.status = this.item.status == '1' ? '0' : '1';
+    this.item.is_disabled = this.item.is_disabled == false ? true : false;
     await this.query({ method: 'PUT', id: this.item.id, data: this.item });
 
     return this.item;

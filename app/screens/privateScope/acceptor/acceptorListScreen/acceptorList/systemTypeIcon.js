@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { observer } from 'mobx-react-lite';
 import { Alert, Animated, StyleSheet, TouchableOpacity, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import SystemStoreContext from 'app/stores/lists/system';
 
 import Colors from 'app/constants/Colors';
 
 
-const SystemTypeIcon = observer(({ type }) => {
-  console.log(type);
+const SystemTypeIcon = observer(({ system_id }) => {
+  const { list: listOfSystems } = useContext(SystemStoreContext);
+
+  let type = "unknown";
+
+  listOfSystems.forEach(system => {
+    console.log(system.id, "==", system_id);
+    if (system.id == system_id){
+      type = system.type;
+    }
+  });
+
   return (
     <View style={styles.iconContainer}>
       {type == 'push' &&
