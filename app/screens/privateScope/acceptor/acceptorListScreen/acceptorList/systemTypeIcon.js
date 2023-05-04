@@ -15,7 +15,6 @@ const SystemTypeIcon = observer(({ system_id }) => {
   let type = "unknown";
 
   listOfSystems.forEach(system => {
-    console.log(system.id, "==", system_id);
     if (system.id == system_id){
       type = system.type;
     }
