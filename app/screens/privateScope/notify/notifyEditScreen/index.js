@@ -23,7 +23,7 @@ const NotifyEditScreen = observer(props => {
     loadCategories();
   }
 
-  if (listOfAcceptors == null) {
+  if (listOfAcceptors.length == 0) {
     loadAcceptors();
   }
 
@@ -84,7 +84,6 @@ const NotifyEditScreen = observer(props => {
       PopScreen(props.componentId);
     }
   }
-
 
   return (
     <Container>
