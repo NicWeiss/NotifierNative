@@ -4,7 +4,7 @@ const periodics = {
   every_month: 'Monthly',
   every_year: 'Yearly',
   everyday: 'Every day',
-  workday: 'On weekdays',
+  workday: 'On workdays',
   weekend: 'Weekend',
   first_month_day: 'First day of the month',
   last_month_day: 'Last day of the month'

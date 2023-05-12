@@ -8,3 +8,6 @@ Execution failed for task ':app:generatePackageList'.
 
 
 [Debug on device](https://reactnative.dev/docs/running-on-device)
+
+
+release - ./gradlew app:assembleRelease -x bundleReleaseJsAndAssets

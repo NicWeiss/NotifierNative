@@ -40,7 +40,7 @@ const NotifyView = ({
           </View>
 
           {
-            item.day_of_week &&
+            item.day_of_week && item.periodic == 'day_of_week' &&
             <View style={styles.itemInfoRow}>
               <Icon name='calendar-week' style={styles.icon} />
               <Text style={styles.itemWeekDay}>

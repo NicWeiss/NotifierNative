@@ -64,3 +64,4 @@ buck-out/
 
 gradlew
 gradlew.bat
+*.keystore

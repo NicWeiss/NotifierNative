@@ -2,6 +2,10 @@ apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+// def sdkDir = properties.getProperty('sdk.dir')
+// def ndkDir = properties.getProperty('ndk.dir')
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
  * and bundleReleaseJsAndAssets).
@@ -132,8 +136,8 @@ android {
         applicationId "com.notifiernative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
-        versionName "2.0.1"
+        versionCode 6
+        versionName "3.3.1"
         multiDexEnabled true
     }
     splits {
@@ -151,15 +155,20 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+              storeFile file(properties.getProperty('MYAPP_UPLOAD_STORE_FILE'))
+              storePassword properties.getProperty('MYAPP_UPLOAD_STORE_PASSWORD')
+              keyAlias properties.getProperty('MYAPP_UPLOAD_KEY_ALIAS')
+              keyPassword properties.getProperty('MYAPP_UPLOAD_KEY_PASSWORD')
+        }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }

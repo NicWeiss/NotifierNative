@@ -20,6 +20,8 @@ const CategoryTabs = observer((props) => {
     onSelect(id)
   }
 
+  const handleKeyExtractor = (_, index) => `flatList_item_${index}`;
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -29,6 +31,8 @@ const CategoryTabs = observer((props) => {
             item={item.item}
             callback={callback} />
         )}
+
+        keyExtractor={handleKeyExtractor}
         style={styles.categoryList}
         horizontal={true}
         ItemSeparatorComponent={SeparatorItem}

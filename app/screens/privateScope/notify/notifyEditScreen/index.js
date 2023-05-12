@@ -15,7 +15,7 @@ import NotifyEditView from './view';
 const NotifyEditScreen = observer(props => {
   useEffect(() => { Orientation.lockToPortrait(); }, []);
 
-  const { item, loadData, updateItem, clear, isLoading } = useContext(NotifyItemContext);
+  const { item, loadData, updateItem, createItem,  clear, isLoading } = useContext(NotifyItemContext);
   const { list: listOfCategories, loadData: loadCategories } = useContext(CategoryStoreContext);
   const { list: listOfAcceptors, loadData: loadAcceptors } = useContext(AcceptorsStoreContext);
 
@@ -77,10 +77,16 @@ const NotifyEditScreen = observer(props => {
   }
 
   const onSave = async (data) => {
-    if (validate(data)) {
-      const updatedItem = await updateItem(data);
+    let item = null;
 
-      props.onchange(updatedItem);
+    if (validate(data)) {
+      if (data.id){
+        item = await updateItem(data);
+      } else {
+        item = await createItem(data);
+      }
+
+      props.onchange(item);
       PopScreen(props.componentId);
     }
   }

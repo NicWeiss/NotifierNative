@@ -48,7 +48,7 @@ export const NotifyListItem = ({ item, index, onChange, handleRefresh }) => {
           </View>
 
           {
-            item.day_of_week &&
+            item.day_of_week && item.periodic == 'day_of_week' &&
             <View style={[styles.itemInfoRow, { marginBottom: 4 }]}>
               <Icon name='calendar-week' style={styles.icon} />
               <Text style={styles.itemWeekDay}>

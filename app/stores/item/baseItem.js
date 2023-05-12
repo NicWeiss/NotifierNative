@@ -58,13 +58,14 @@ class BaseItemStore {
   };
 
   @action createItem = async (item) => {
+    item.is_disabled = false;
     await this.query({ method: 'POST', data: item });
 
     return this.item;
   };
 
   query = async (params) => {
-    const metod = params.method || 'GET';
+    const method = params.method || 'GET';
     const id = params.id || '';
     const data = params.data || null;
 
@@ -78,7 +79,7 @@ class BaseItemStore {
     }
 
     try {
-      response = await Api.doRequest(metod, `/${this.entityInUrl}/` + id, queryData);
+      response = await Api.doRequest(method, `/${this.entityInUrl}${id? '/': ''}` + id, queryData);
     } catch (error) {
       ProcessErrors(error);
     }

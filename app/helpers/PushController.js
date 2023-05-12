@@ -45,8 +45,6 @@ async function storeMessage(remoteMessage) {
 }
 
 async function showStoredMessages() {
-  console.log('Time to show!');
-
   const storedMessages = await AsyncStorage.getItem('messages');
   const messages = storedMessages ? JSON.parse(storedMessages) : { items: [] };
   let body = '';
