@@ -61,7 +61,7 @@ const NotifyEditView = ({
 
   const handleChangeDateTime = (type, value) => {
     if (type == 'date') {
-      const month = value.getMonth() < 10 ? `0${value.getMonth() + 1}` : value.getMonth() + 1;
+      const month = (value.getMonth() + 1) < 10 ? `0${value.getMonth() + 1}` : value.getMonth() + 1;
       const date = value.getDate() < 10 ? `0${value.getDate()}` : value.getDate();
       handleChange(type, `${value.getFullYear()}-${month}-${date}`)
     }

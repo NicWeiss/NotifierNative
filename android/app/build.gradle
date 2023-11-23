@@ -136,8 +136,8 @@ android {
         applicationId "com.notifiernative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "3.3.1"
+        versionCode 7
+        versionName "3.3.2"
         multiDexEnabled true
     }
     splits {

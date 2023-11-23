@@ -13,7 +13,7 @@ const changeTimeZone = (data, currentDate, gmt) => {
 
     if (data.date) {
       const year = currentDate.getFullYear();
-      const month = currentDate.getMonth() < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1;
+      const month = (currentDate.getMonth() + 1) < 10 ? `0${currentDate.getMonth() + 1}` : currentDate.getMonth() + 1;
       const date = currentDate.getDate() < 10 ? `0${currentDate.getDate()}` : currentDate.getDate();
       data.date = `${year}-${month}-${date}`;
     }

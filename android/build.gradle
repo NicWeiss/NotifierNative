@@ -4,9 +4,9 @@ buildscript {
     ext {
         RNNKotlinVersion = "1.6.0" //"1.5.10"
         buildToolsVersion = "29.0.2"
-        minSdkVersion = 28
+        minSdkVersion = 27
         compileSdkVersion = 29
-        targetSdkVersion = 31
+        targetSdkVersion = 33
     }
     repositories {
         google()
