@@ -10,4 +10,11 @@ Execution failed for task ':app:generatePackageList'.
 [Debug on device](https://reactnative.dev/docs/running-on-device)
 
 
-release - ./gradlew app:assembleRelease -x bundleReleaseJsAndAssets
+release AAB:
+```
+    bash
+    export NODE_OPTIONS=--openssl-legacy-provider
+    nvm use 18
+    cd android
+    ./gradlew app:bundleRelease -x bundleReleaseJsAndAssets -Dorg.gradle.java.home=/usr/lib64/jvm/java-8-openjdk/
+```
