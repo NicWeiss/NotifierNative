@@ -1,6 +1,6 @@
 {
   "name": "Notifier",
-  "version": "3.3.3",
+  "version": "3.3.4",
   "private": true,
   "scripts": {
     "env:dev": "node scripts/set-env.js develop",
@@ -30,7 +30,6 @@
     "react-native-date-picker": "~4.2.6",
     "react-native-device-info": "~7.4.0",
     "react-native-dialog": "~6.1.2",
-    "react-native-fix-image": "~2.0.1",
     "react-native-keyboard-aware-scroll-view": "~0.9.3",
     "react-native-navigation": "~7.28.1",
     "react-native-navigation-hooks": "~6.2.0",

@@ -16,5 +16,5 @@ release AAB:
     export NODE_OPTIONS=--openssl-legacy-provider
     nvm use 18
     cd android
-    ./gradlew app:bundleRelease -x bundleReleaseJsAndAssets -Dorg.gradle.java.home=/usr/lib64/jvm/java-8-openjdk/
+    ./gradlew app:bundleRelease -x bundleReleaseJsAndAssets -Dorg.gradle.java.home=/usr/lib64/jvm/java-11-openjdk/
 ```
